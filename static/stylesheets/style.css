@@ -45,24 +45,25 @@ body {
 }
 
 .hoodcast-search {
- margin: 5px 15px 5px 0;
- display: inline-block;
+  margin: 5px 15px 5px 0;
+  display: inline-block;
 }
 
 .hoodcast-search-input {
- width: 250px;
- height: 36px;
- border-radius: 3px;
- padding-left: 50px;
- border: solid 1px #cecccf;
- font-family: Work Sans;
- font-size: 18px;
- font-weight: 500;
- line-height: 1.0;
- letter-spacing: 0.4px;
- padding-top: 5px;
- text-align: left;
- color: #4f4f4f;
+  width: 250px;
+  height: 36px;
+  border-radius: 3px;
+  padding-left: 50px;
+  border: solid 1px #cecccf;
+  font-family: Work Sans;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: 0.4px;
+  padding-top: 5px;
+  text-align: left;
+  color: #4f4f4f;
+  -webkit-user-select: text;
 }
 
 #search {
