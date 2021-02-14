@@ -79,6 +79,10 @@ body {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
+.table-container {
+  overflow-x: scroll;
+}
+
 table {
   width: 100%;
   text-align: center;

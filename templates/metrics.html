@@ -52,48 +52,50 @@
   {% endfor %}
   </select>
     
-  <table class="hoodcast-table">
-    <tbody>
-      <tr class="table-header hoodcast-header">
-          
-        {% for i in range(columns|length) %}  
-        <th>
-          {{ columns[i].lower().title() }}
-          <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
-                              table=table.lower().title(), sort='ASC', col_index=i) }}">
-            <img class="sort" 
-                 alt="Sort Ascending" 
-                 src="{{ url_for('static', filename='resources/images/up.svg') }}" />
-          </a>
-          <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
-                              table=table.lower().title(), sort='DESC', col_index=i) }}">
-            <img class="sort" 
-                 alt="Sort Descending" 
-                 src="{{ url_for('static', filename='resources/images/down.svg') }}" />
-          </a>
-        </th>
-        {% endfor %}
+  <div class="table-container">
+      <table class="hoodcast-table">
+        <tbody>
+          <tr class="table-header hoodcast-header">
 
-      </tr>
-        
-      {% for i in range(df|length) %} 
-      <tr key="{{ i }}">
-        {% for j in range(df[i]|length) %}
-        {% if i != 0 and j == 0 %}
-        {% if df[i][j] == df[i-1][j] %}
-        <td key="row{{ i }}-{{ j }}"></td>  
-        {% else %}
-        <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
-        {% endif %}
-        {% else %}
-        <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
-        {% endif %}
-        {% endfor %}
-      </tr>
-      {% endfor %}  
-        
-    </tbody>
-  </table>
+            {% for i in range(columns|length) %}  
+            <th>
+              {{ columns[i].lower().title() }}
+              <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
+                                  table=table.lower().title(), sort='ASC', col_index=i) }}">
+                <img class="sort" 
+                     alt="Sort Ascending" 
+                     src="{{ url_for('static', filename='resources/images/up.svg') }}" />
+              </a>
+              <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
+                                  table=table.lower().title(), sort='DESC', col_index=i) }}">
+                <img class="sort" 
+                     alt="Sort Descending" 
+                     src="{{ url_for('static', filename='resources/images/down.svg') }}" />
+              </a>
+            </th>
+            {% endfor %}
+
+          </tr>
+
+          {% for i in range(df|length) %} 
+          <tr key="{{ i }}">
+            {% for j in range(df[i]|length) %}
+            {% if i != 0 and j == 0 %}
+            {% if df[i][j] == df[i-1][j] %}
+            <td key="row{{ i }}-{{ j }}"></td>  
+            {% else %}
+            <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
+            {% endif %}
+            {% else %}
+            <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
+            {% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}  
+
+        </tbody>
+      </table>
+  </div>
 </div>
 
 {% endblock %}
