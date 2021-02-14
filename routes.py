@@ -48,17 +48,25 @@ def metrics(name, form_type, year, table, sort, col_index):
     except:
         flash('Some financial metrics unavailable')
 
-    df_array, file_array, engine, session = mobb.statements_to_sql()
+    df_array, file_array, table_titles, engine, session = mobb.statements_to_sql()
+    table_list = ['Balance', 'Income', 'Operation', 'Equity', 'Cash']
+    bala, inco, oper, equi, cash = [None] * 5
+    table_val = [bala, inco, oper, equi, cash]
+    
+    if file_array:
+        for i in range(len(table_titles)):
+            for j in range(len(table_list)):
+                table_val[i] = file_array[i] if table_titles[i] == table_list[j] else table_val[i]
 
     if statement is None:
         statement = Statement(form_type=form_type,
                               year=year,
                               company=name,
-                              bs=file_array[0],
-                              income=file_array[1],
-                              ops=file_array[2],
-                              equity=file_array[3],
-                              cash=file_array[4],
+                              bs=bala,
+                              income=inco,
+                              ops=oper,
+                              equity=equi,
+                              cash=cash,
                               company_id=company.id)
 
         db.session.add(statement)
@@ -69,7 +77,6 @@ def metrics(name, form_type, year, table, sort, col_index):
             db.session.rollback()
             return redirect(url_for('index'))
     
-    table_list = ['Balance', 'Income', 'Operation', 'Equity', 'Cash']
     columns = session.execute(f"SELECT * FROM {table}").keys()
     
     if sort != 'new':
@@ -95,5 +102,5 @@ def metrics(name, form_type, year, table, sort, col_index):
         return redirect(next_page)
     return render_template('metrics.html', form=form, name=name, form_type=form_type, 
                            year=year, table=table, sort=sort, col_index=col_index, 
-                           company=company, ratios=ratios, table_list=table_list, 
+                           company=company, ratios=ratios, table_titles=table_titles, 
                            df=df, columns=columns)

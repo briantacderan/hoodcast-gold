@@ -43,7 +43,7 @@
   <h2 id="active" class="subheader">{{ table.upper() }}</h2>
   click to view: 
   <select name="new_table" onchange="location=this.value;">
-  {% for new_table in table_list %}
+  {% for new_table in table_titles %}
     {% if new_table == table %}
     <option value="the {{ new_table }} table" SELECTED>the {{ new_table }} table</option>
     {% else %}
