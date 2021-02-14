@@ -11,6 +11,7 @@ import hoodflex as hf
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = SearchForm()
+    companies = Company.query.with_entities(Company.title).all()
     
     if form.validate_on_submit():
         name = form.name.data.lower().title()
@@ -20,9 +21,10 @@ def index():
         
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('metrics', name=name, form_type=form_type, 
-                                year=year, table='Balance', sort='new', col_index=1)
+                                year=year, table='Balance', sort='new', 
+                                col_index=1, companies=companies)
         return redirect(next_page)
-    return render_template('landing_page.html', form=form)
+    return render_template('landing_page.html', form=form, companies=companies)
 
 
 @app.route('/MOBBIN/<name>/<form_type>/<year>/<table>/<sort>/<col_index>', methods=['GET', 'POST'])
@@ -86,6 +88,7 @@ def metrics(name, form_type, year, table, sort, col_index):
         
     ratios = SearchResults(mobb, robb, session)
     form = SearchForm()
+    companies = Company.query(title).all()
     
     if form.validate_on_submit():
         name = form.name.data.lower().title()
@@ -97,10 +100,11 @@ def metrics(name, form_type, year, table, sort, col_index):
         col_index = request.args.get('col_index')
         
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('metrics', name=name, form_type=form_type, year=year, 
-                                table='Balance', sort='new', col_index=1)
+            next_page = url_for('metrics', form=form, name=name, form_type=form_type, 
+                                year=year, table='Balance', sort='new', col_index=1,
+                                companies=companies)
         return redirect(next_page)
     return render_template('metrics.html', form=form, name=name, form_type=form_type, 
                            year=year, table=table, sort=sort, col_index=col_index, 
                            company=company, ratios=ratios, table_titles=table_titles, 
-                           df=df, columns=columns)
+                           df=df, columns=columns, companies=companies)

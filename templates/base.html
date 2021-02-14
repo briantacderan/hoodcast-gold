@@ -19,11 +19,11 @@
       
     <div id="container">
       <div id="search">
-        <form id="form-panels" action="" method="post">
+        <form autocomplete="off" id="form-panels" action="" method="post">
             
           {{ form.hidden_tag() }}
-          <div class="hoodcast-search">
-            {{ form.name(class="hoodcast-search-input", size=32) }}
+          <div class="hoodcast-search autocomplete">
+            {{ form.name(id="company-search", class="hoodcast-search-input form-control", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
@@ -51,6 +51,17 @@
       {% endblock %}
         
     </div>
+      
+    <script src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" >
+      var companies = {{ companies|tojson }}; 
+      var companyArray = [];
+      for (i = 0; i < companies.length; i++) {
+        companyArray.push(companies[i][0]);
+      }
+      console.log(companyArray);
+    </script>
+    <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
       
   </body>
 </html>
