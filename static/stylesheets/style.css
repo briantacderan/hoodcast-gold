@@ -125,8 +125,7 @@ td.company-link:hover {
   color: gray;
 }
 
-#hoodcast-search-button,
-input[type="submit" i] {
+#hoodcast-search-button {
   width: 160px;
   height: 65px;
   border-radius: 8px;
@@ -137,6 +136,9 @@ input[type="submit" i] {
   line-height: 1.13;
   font-size: 2.5rem;
   color: #000;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 #hoodcast-search-button:hover {
