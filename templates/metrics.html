@@ -42,12 +42,15 @@
 <div>
   <h2 id="active" class="subheader">{{ table.upper() }}</h2>
   click to view: 
+  <select name="new_table" onchange="location=this.value;">
   {% for new_table in table_list %}
-  <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
-                      table=new_table, sort='new', col_index=1) }}">
-    <h2 id="hidden" class="subheader">the {{ new_table }} table</h2>
-  </a>
+    {% if new_table == table %}
+    <option value="the {{ new_table }} table" SELECTED>the {{ new_table }} table</option>
+    {% else %}
+    <option value="{{ url_for('metrics', name=name, form_type=form_type, year=year, table=new_table, sort='new', col_index=1) }}">the {{ new_table }} table</option>
+    {% endif %}
   {% endfor %}
+  </select>
     
   <table class="hoodcast-table">
     <tbody>

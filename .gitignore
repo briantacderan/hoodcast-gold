@@ -88,6 +88,11 @@ target/
 .ipynb_checkpoints
 .DS_Store
 *.ipynb
+*bala.csv
+*cash.csv
+*equi.csv
+*inco.csv
+*oper.csv
 
 # IPython
 profile_default/
