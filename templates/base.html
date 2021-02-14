@@ -53,13 +53,12 @@
     </div>
       
     <script src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js"></script>
-    <script type="text/javascript" >
+    <script type="text/javascript">
       var companies = {{ companies|tojson }}; 
       var companyArray = [];
       for (i = 0; i < companies.length; i++) {
         companyArray.push(companies[i][0]);
       }
-      console.log(companyArray);
     </script>
     <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
       
