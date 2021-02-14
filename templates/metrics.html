@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+  <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
+  <table id="company-detail-table">
+    <tbody>
+      <tr>
+        <td class="table-descriptor">WORKING CAPITAL</td>
+        <td class="table-descriptor">DEBT RATIO</td>
+        <td class="table-descriptor">ACID TEST</td>
+      </tr>
+      <tr>
+        <td class="table-value">{{ ratios.get_ratio()[0] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[1] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[2] }}</td>
+      </tr>
+      <tr>
+        <td class="table-descriptor">DEBT-EQUITY</td>
+        <td class="table-descriptor">EARNINGS PER SHARE</td>
+        <td class="table-descriptor">PRICE-EARNINGS</td>
+      </tr>
+      <tr>
+        <td class="table-value">{{ ratios.get_ratio()[3] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[4] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[5] }}</td>
+      </tr>
+      <tr>
+        <td class="table-descriptor">RETURN ON EQUITY</td> 
+        <td class="table-descriptor">PRICE-BOOK</td>
+        <td class="table-descriptor">WC TURNOVER</td>
+      </tr>
+      <tr>
+        <td class="table-value">{{ ratios.get_ratio()[6] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[7] }}</td>
+        <td class="table-value">{{ ratios.get_ratio()[8] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2 id="active" class="subheader">{{ table.upper() }}</h2>
+  click to view: 
+  {% for new_table in table_list %}
+  <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
+                      table=new_table, sort='new', col_index=1) }}">
+    <h2 id="hidden" class="subheader">the {{ new_table }} table</h2>
+  </a>
+  {% endfor %}
+    
+  <table class="hoodcast-table">
+    <tbody>
+      <tr class="table-header hoodcast-header">
+          
+        {% for i in range(columns|length) %}  
+        <th>
+          {{ columns[i].lower().title() }}
+          <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
+                              table=table.lower().title(), sort='ASC', col_index=i) }}">
+            <img class="sort" 
+                 alt="Sort Ascending" 
+                 src="{{ url_for('static', filename='resources/images/up.svg') }}" />
+          </a>
+          <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
+                              table=table.lower().title(), sort='DESC', col_index=i) }}">
+            <img class="sort" 
+                 alt="Sort Descending" 
+                 src="{{ url_for('static', filename='resources/images/down.svg') }}" />
+          </a>
+        </th>
+        {% endfor %}
+
+      </tr>
+        
+      {% for i in range(df|length) %} 
+      <tr key="{{ i }}">
+        {% for j in range(df[i]|length) %}
+        {% if i != 0 and j == 0 %}
+        {% if df[i][j] == df[i-1][j] %}
+        <td key="row{{ i }}-{{ j }}"></td>  
+        {% else %}
+        <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
+        {% endif %}
+        {% else %}
+        <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}  
+        
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

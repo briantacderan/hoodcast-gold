@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hoodcast</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:500" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/reset.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+    
+  <body>
+    <a href="{{ url_for('index') }}">
+      <img alt="Hoodcast Icon"
+           id="hoodcast-icon"
+           src="{{ url_for('static', filename='resources/images/hoodcast-gold.svg') }}" />
+    </a>
+      
+    <div id="container">
+      <div id="search">
+        <form id="form-panels" action="" method="post">
+            
+          {{ form.hidden_tag() }}
+          <div id="hoodcast-search">
+            {{ form.name(id="hoodcast-search-input", size=32) }}
+            {% for error in form.name.errors %}
+            <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+            {% endfor %}
+          </div>
+          <div id="hoodcast-search">
+            {{ form.form_type(id="hoodcast-search-input", size=32) }}
+            {% for error in form.name.errors %}
+            <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+            {% endfor %}
+          </div>
+          <div id="hoodcast-search">
+            {{ form.year(id="hoodcast-search-input", size=32) }}
+            {% for error in form.name.errors %}
+            <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+            {% endfor %}
+          </div>
+          <div>
+            {{ form.submit(id="hoodcast-search-button") }}
+          </div>
+              
+        </form>
+      </div>    
+      
+      {% block content %}
+      {% endblock %}
+        
+    </div>
+      
+  </body>
+</html>
