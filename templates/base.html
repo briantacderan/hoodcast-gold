@@ -22,20 +22,20 @@
         <form id="form-panels" action="" method="post">
             
           {{ form.hidden_tag() }}
-          <div id="hoodcast-search">
-            {{ form.name(id="hoodcast-search-input", size=32) }}
+          <div class="hoodcast-search">
+            {{ form.name(class="hoodcast-search-input", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
-          <div id="hoodcast-search">
-            {{ form.form_type(id="hoodcast-search-input", size=32) }}
+          <div class="hoodcast-search">
+            {{ form.form_type(class="hoodcast-search-input", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
-          <div id="hoodcast-search">
-            {{ form.year(id="hoodcast-search-input", size=32) }}
+          <div class="hoodcast-search">
+            {{ form.year(class="hoodcast-search-input", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}

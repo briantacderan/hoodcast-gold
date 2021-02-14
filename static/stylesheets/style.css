@@ -44,12 +44,12 @@ body {
   flex-direction: column;
 }
 
-#hoodcast-search {
+.hoodcast-search {
  margin: 5px 15px 5px 0;
  display: inline-block;
 }
 
-#hoodcast-search-input {
+.hoodcast-search-input {
  width: 250px;
  height: 36px;
  border-radius: 3px;
