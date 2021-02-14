@@ -126,6 +126,7 @@ td.company-link:hover {
 }
 
 #hoodcast-search-button {
+  text-align: center;
   width: 160px;
   height: 65px;
   border-radius: 8px;
@@ -194,6 +195,15 @@ h2#hidden.subheader:hover {
   width:20%;
 }
 
+.sort,
+.company-link,
+a,
+a img,
+a h2,
+#hoodcast-search-button {
+  cursor: pointer;
+}
+
 @media (max-width: 750px) {
   #title-line {
     width:90%;
@@ -206,6 +216,12 @@ h2#hidden.subheader:hover {
   #hoodcast-icon {
     width: 40%;
   }
+    
+  #hoodcast-search-button {
+    width: 180px;
+    height: 55px;
+    font-size: 2rem;
+  }
 }
 
 @media (max-height: 600px) {
@@ -216,13 +232,10 @@ h2#hidden.subheader:hover {
   #hoodcast-icon {
     margin: 1% 0;
   }
-}
-
-.sort,
-.company-link,
-a,
-a img,
-a h2,
-#hoodcast-search-button {
-  cursor: pointer;
+    
+  #hoodcast-search-button {
+    width: 180px;
+    height: 55px;
+    font-size: 2rem;
+  }
 }
