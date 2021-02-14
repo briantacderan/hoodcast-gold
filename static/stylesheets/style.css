@@ -64,6 +64,8 @@ body {
   text-align: left;
   color: #4f4f4f;
   -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
 }
 
 #search {
