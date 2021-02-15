@@ -212,7 +212,9 @@ path,
   }
 
   svg, path, 
-  #hoodcast-icon {
+  #hoodcast-icon,
+  #hoodcast_x6F_logo,
+  #hoodcast-icon img {
     width: 50%;
     max-width: 200px;
   }
@@ -229,7 +231,9 @@ path,
   }
     
   svg, path,  
-  #hoodcast-icon {
+  #hoodcast-icon,
+  #hoodcast_x6F_logo,
+  #hoodcast-icon img {
     width: 50%;
     max-width: 200px;
   }
