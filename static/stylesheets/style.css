@@ -185,7 +185,7 @@ h2#hidden.subheader:hover {
   background-color: gray;
   bottom: 0;
   display: block;
-  height: 300px;
+  height: 600px;
   left: 0;
   position: absolute;
   right: 0;
@@ -223,6 +223,10 @@ path,
     width: 180px;
     font-size: 2rem;
   }
+
+  .site-main-background {
+    height: 300px;
+  }
 }
 
 @media (max-height: 600px) {
@@ -241,6 +245,10 @@ path,
   #hoodcast-search-button {
     width: 180px;
     font-size: 2rem;
+  }
+    
+  .site-main-background {
+    height: 300px;
   }
 }
 
