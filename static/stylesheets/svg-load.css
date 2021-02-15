@@ -1,0 +1,50 @@
+body {
+  background: gray;
+  position: relative;
+}
+
+#hoodcast-icon {
+  margin: 0 auto;
+  width: 100%;
+}
+
+#hoodcast_x6F_logo,
+#hoodcast-icon img {
+  margin: 2rem auto;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+}
+
+#hoodcast_x5F_logo {
+  position: absolute;
+  margin: 0 auto;
+  bottom: 0;
+  top: -159px;
+  width: 100%;
+}
+
+#hoodcast_x6F_logo,
+#hoodcast_x5F_logo {
+  left: 0;
+  right: 0;
+}
+
+svg path {
+  position: fixed;
+  margin: 0 auto;
+  width: 100%;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  stroke: gold;
+  fill: gray;
+}
+
+g#logo {
+  z-index: 1001;
+}
+
+g#logo:hover {
+  fill: gold;
+}
