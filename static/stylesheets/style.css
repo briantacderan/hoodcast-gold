@@ -118,7 +118,7 @@ td.company-link:hover {
   border-radius: 8px;
   margin-top: 20px;
   background-color: gold;
-  border: solid 4px gray;
+  border: solid 4px #000;
   font-family: Work Sans;
   line-height: 1.13;
   font-size: 2.5rem;
