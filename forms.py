@@ -16,7 +16,7 @@ class SearchForm(FlaskForm):
                        render_kw={'placeholder': 'Company name'})
     form_type = StringField('Form', 
                             validators=[DataRequired('Specify form')], 
-                            render_kw={'placeholder': 'Form i.e. 10-Q, 10-K'})
+                            render_kw={'placeholder': 'SEC Form (10-Q, 10-K)'})
     year = StringField('Year', 
                        validators=[DataRequired('Year')], 
                        render_kw={'placeholder': 'Year'})
