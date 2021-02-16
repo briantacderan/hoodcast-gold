@@ -66,7 +66,7 @@
       
       {% block content %}
       {% endblock %}
-        
+      
       <div class="site-main-background" arai-hidden="true"></div>
     </div>
       
@@ -77,6 +77,8 @@
       for (i = 0; i < companies.length; i++) {
         companyArray.push(companies[i][0]);
       }
+      
+      var new_table = {{  }};
     </script>
     <script src="{{ url_for('static', filename='javascripts/autocomplete.js') }}"></script>
       

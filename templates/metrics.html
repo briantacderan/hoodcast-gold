@@ -43,13 +43,18 @@
 
 <div>
   <h2 id="active" class="subheader">{{ table.upper() }}</h2>
-  click to view: 
+  click to view:
   <select name="new_table" onchange="location=this.value;">
   {% for new_table in table_titles %}
     {% if new_table == table %}
-    <option value="the {{ new_table }} table" SELECTED>the {{ new_table }} table</option>
+    <option value="the {{ new_table }} table" SELECTED>
+      the {{ new_table }} table
+    </option>
     {% else %}
-    <option value="{{ url_for('metrics', name=name, form_type=form_type, year=year, table=new_table, sort='new', col_index=1) }}">the {{ new_table }} table</option>
+    <option value="{{ url_for('metrics', name=name, form_type=form_type, 
+                   year=year, table=new_table, sort='new', col_index=1) }}">
+      the {{ new_table }} table
+    </option>
     {% endif %}
   {% endfor %}
   </select>
@@ -62,14 +67,16 @@
             {% for i in range(columns|length) %}  
             <th>
               {{ columns[i].lower().title() }}
-              <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
-                                  table=table.lower().title(), sort='ASC', col_index=i) }}">
+              <a href="{{ url_for('metrics', name=name, form_type=form_type, 
+                       year=year, table=table.lower().title(), sort='ASC', 
+                       col_index=i) }}">
                 <img class="sort" 
                      alt="Sort Ascending" 
                      src="{{ url_for('static', filename='resources/images/up.svg') }}" />
               </a>
-              <a href="{{ url_for('metrics', name=name, form_type=form_type, year=year, 
-                                  table=table.lower().title(), sort='DESC', col_index=i) }}">
+              <a href="{{ url_for('metrics', name=name, form_type=form_type, 
+                       year=year, table=table.lower().title(), sort='DESC', 
+                       col_index=i) }}">
                 <img class="sort" 
                      alt="Sort Descending" 
                      src="{{ url_for('static', filename='resources/images/down.svg') }}" />

@@ -1,6 +1,9 @@
 $(document).ready(function() {  
 
   var body = document.querySelector('body');
-  body.style.background = 'white';
+  var container = document.getElementById('container');
     
+  body.style.background = 'white';
+  container.style.height = '75vh';
+
 });

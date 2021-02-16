@@ -24,10 +24,12 @@ def index():
                                 year=year, table='Balance', sort='new', 
                                 col_index=1)
         return redirect(next_page)
-    return render_template('landing_page.html', form=form, companies=companies)
+    return render_template('landing_page.html', 
+                           form=form, companies=companies)
 
 
-@app.route('/MOBBIN/<name>/<form_type>/<year>/<table>/<sort>/<col_index>', methods=['GET', 'POST'])
+@app.route('/MOBBIN/<name>/<form_type>/<year>/<table>/<sort>/<col_index>', 
+           methods=['GET', 'POST'])
 def metrics(name, form_type, year, table, sort, col_index):
     current = dt.datetime.now()
     date_array = [current]
@@ -50,7 +52,9 @@ def metrics(name, form_type, year, table, sort, col_index):
     except:
         flash('Some financial metrics unavailable')
 
-    df_array, file_array, table_titles, engine, session = mobb.statements_to_sql()
+    df_array, file_array, table_titles, engine, session = \
+    mobb.statements_to_sql()
+    
     table_list = ['Balance', 'Income', 'Operation', 'Equity', 'Cash']
     bala, inco, oper, equi, cash = [None] * 5
     table_val = [bala, inco, oper, equi, cash]
@@ -58,7 +62,9 @@ def metrics(name, form_type, year, table, sort, col_index):
     if file_array:
         for i in range(len(table_titles)):
             for j in range(len(table_list)):
-                table_val[i] = file_array[i] if table_titles[i] == table_list[j] else table_val[i]
+                table_val[i] = file_array[i] \
+                if table_titles[i] == table_list[j] \
+                else table_val[i]
 
     if statement is None:
         statement = Statement(form_type=form_type,
@@ -101,9 +107,13 @@ def metrics(name, form_type, year, table, sort, col_index):
         
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('metrics', name=name, form_type=form_type, 
-                                year=year, table='Balance', sort='new', col_index=1)
+                                year=year, table='Balance', sort='new', 
+                                col_index=1)
+            
         return redirect(next_page)
-    return render_template('metrics.html', form=form, name=name, form_type=form_type, 
-                           year=year, table=table, sort=sort, col_index=col_index, 
-                           company=company, ratios=ratios, table_titles=table_titles, 
+    
+    return render_template('metrics.html', form=form, name=name, 
+                           form_type=form_type, year=year, table=table, 
+                           sort=sort, col_index=col_index, company=company, 
+                           ratios=ratios, table_titles=table_titles, 
                            df=df, columns=columns, companies=companies)
