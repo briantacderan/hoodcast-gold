@@ -88,7 +88,8 @@ def metrics(name, form_type, year, table, sort, col_index):
     columns = session.execute(f"SELECT * FROM {table}").keys()
     
     if sort != 'new':
-        df = session.execute(f"SELECT * FROM {table} ORDER BY `{columns[int(col_index)]}` {sort}").fetchall()
+        df = session.execute(f"SELECT * FROM {table} ORDER BY \
+        `{columns[int(col_index)]}` {sort}").fetchall()
     else:
         df = session.execute(f"SELECT * FROM {table}").fetchall()
         

@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
+      
     <title>Hoodcast Gold</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:500" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/reset.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/svg-load.css') }}" type="text/css" />
-    <script src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" 
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:500" 
+          rel="stylesheet" />
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='stylesheets/reset.css') }}" 
+          type="text/css" />
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='stylesheets/style.css') }}" 
+          type="text/css" />
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='stylesheets/svg-load.css') }}" 
+          type="text/css" />
+      
+    <script src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js"></script>
+      
   </head>
-    
   <body>
+      
     <div id="hoodcast-icon">
       <a href="{{ url_for('index') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="hoodcast_x6F_logo" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 1000 311.491" enable-background="new 0 0 1000 311.491" xml:space="preserve">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" 
+             id="hoodcast_x6F_logo" x="0px" y="0px" width="100%" 
+             height="100%" viewBox="0 0 1000 311.491" 
+             enable-background="new 0 0 1000 311.491" xml:space="preserve">
           <g id="logo">
             <path id="la" class="paths" d="M 94.564991,262.78004 C 94.021176,202.77486 94.122549,186.29262 94.122549,147.57937 93.614843,47.618912 91.608187,26.091462 97.956375,23.335004 c 6.769785,-6.769782 18.283645,-4.230252 22.086585,4.871481 1.95397,4.676505 -1.02167,36.759772 -0.97246,64.381254 L 119.14,131.5964 c 0.004,2.06508 11.46274,-3.35316 29.97974,-2.70411 18.48141,0.64779 25.02449,1.44966 28.94175,3.54684 9.87729,5.28802 9.62998,3.2962 10.77237,72.25655 0.7228,43.63208 3.31932,59.94218 -2.46082,65.45961 -4.4014,3.91726 -14.61349,4.15031 -18.34511,0.4187 -3.89161,-3.89159 -0.5024,-10.86285 -0.59385,-57.5289 -0.0524,-26.7554 0.21432,-53.07442 -0.93123,-55.58864 -2.18982,-4.80613 0.87487,-8.0798 -24.10788,-6.76346 -27.31372,1.43916 -27.2628,-10.77555 -25.70401,53.26887 -0.0471,16.93822 0.14102,24.74294 0.1273,57.65736 -0.007,17.23564 -22.02902,16.32434 -22.253269,1.16082 z" />
             <path id="lb" class="paths" d="m 230.47113,271.24565 c -10.43838,-2.93336 -14.03962,-4.10078 -19.12015,-14.44705 -8.62461,-15.93521 -8.24689,-40.69542 -8.45372,-58.35843 -0.28622,-24.44246 -0.063,-47.49105 0.49607,-51.21908 8.79891,-28.67875 44.95412,-22.535 67.18726,-18.90647 16.60581,3.87121 21.32669,15.41096 25.17354,26.46015 2.5766,7.40063 2.94119,13.2884 2.94119,47.49608 0,37.79517 -0.11943,39.31253 -3.72218,47.28441 -5.23807,11.59038 -10.14971,15.12113 -26.29665,18.90351 -18.98674,4.44756 -29.55302,5.21832 -38.20536,2.78688 z m 35.75172,-25.30761 c 13.65411,-6.80414 16.09529,-17.66805 12.33667,-54.90169 -2.59876,-25.74367 -4.59073,-32.56484 -10.97687,-37.58818 -8.36872,-6.58282 -28.22148,-8.53053 -36.36138,-3.56734 -7.95967,4.8533 -8.87483,11.10784 -7.09436,48.4852 1.65036,34.64583 3.43431,42.55982 10.92125,48.44904 5.96696,4.69361 20.83528,4.27532 31.17469,-0.87703 z" />
@@ -30,7 +46,8 @@
         <img id="main-logo" 
              class="sort" 
              alt="Sort Descending" 
-             src="{{ url_for('static', filename='resources/images/hoodcast-gold.svg') }}" />
+             src="{{ url_for('static', 
+                  filename='resources/images/hoodcast-gold.svg') }}" />
       </a>
     </div>
       
@@ -40,19 +57,22 @@
             
           {{ form.hidden_tag() }}
           <div class="hoodcast-search autocomplete">
-            {{ form.name(id="company-search", class="hoodcast-search-input form-control", size=32) }}
+            {{ form.name(id="company-search", 
+              class="hoodcast-search-input form-control", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
           <div class="hoodcast-search">
-            {{ form.form_type(id="enter-event1", class="hoodcast-search-input", size=32) }}
+            {{ form.form_type(id="enter-event1", 
+              class="hoodcast-search-input", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
           <div class="hoodcast-search">
-            {{ form.year(id="enter-event2", class="hoodcast-search-input", size=32) }}
+            {{ form.year(id="enter-event2", class="hoodcast-search-input", 
+              size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
@@ -70,17 +90,16 @@
       <div class="site-main-background" arai-hidden="true"></div>
     </div>
       
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript">
       var companies = {{ companies|tojson }}; 
       var companyArray = [];
       for (i = 0; i < companies.length; i++) {
         companyArray.push(companies[i][0]);
       }
-      
-      var new_table = {{  }};
     </script>
-    <script src="{{ url_for('static', filename='javascripts/autocomplete.js') }}"></script>
+    <script src="{{ url_for('static', 
+                 filename='javascripts/autocomplete.js') }}"></script>
       
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>

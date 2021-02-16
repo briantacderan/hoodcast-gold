@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
-<script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+<script src="{{ url_for('static', filename='javascripts/main.js') }}">
+</script>
 
 <div>
   <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
@@ -72,14 +73,16 @@
                        col_index=i) }}">
                 <img class="sort" 
                      alt="Sort Ascending" 
-                     src="{{ url_for('static', filename='resources/images/up.svg') }}" />
+                     src="{{ url_for('static', 
+                          filename='resources/images/up.svg') }}" />
               </a>
               <a href="{{ url_for('metrics', name=name, form_type=form_type, 
                        year=year, table=table.lower().title(), sort='DESC', 
                        col_index=i) }}">
                 <img class="sort" 
                      alt="Sort Descending" 
-                     src="{{ url_for('static', filename='resources/images/down.svg') }}" />
+                     src="{{ url_for('static', 
+                          filename='resources/images/down.svg') }}" />
               </a>
             </th>
             {% endfor %}
