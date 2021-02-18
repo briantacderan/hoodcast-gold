@@ -43,7 +43,7 @@
 <div id="to-{{ table_titles[x].lower() }}">
   <h2 id="active" class="subheader">{{ table_titles[x].upper() }}</h2>
   click to view:
-  <select id="{{ table_titles[x].lower() }}-selector">
+  <select id="{{ table_titles[x].lower() }}-selector" class="selectors">
 
   {% for table in table_titles %}
     {% if table == table_titles[x] %}
