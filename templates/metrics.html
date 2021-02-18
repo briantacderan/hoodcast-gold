@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+<script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+
 <div>
   <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
   <table id="company-detail-table">
@@ -58,27 +60,25 @@
   {% endfor %}
       
   </select>
-    
+
   <div class="table-container">
-    <table id="table-{{ table_titles[x] }}" class="hoodcast-table">
+    <table id="table-{{ table_titles[x].lower() }}" class="hoodcast-table">
       <tbody>
         <tr class="table-header hoodcast-header">
 
           {% for i in range(df_dict[table_titles[x]]['columns']|length) %}
           <th id="headers-{{ x }}-{{ i }}">
             {{ df_dict[table_titles[x]]['columns'][i].lower().title() }}
-            <a href="#void">
-              <img class="sortasc-{{ i }}" 
-                   alt="Sort Ascending"
-                   src="{{ url_for('static', 
-                        filename='resources/images/up.svg') }}" />
-            </a>
-            <a href="#void">
-              <img class="sortdesc-{{ i }}"
-                   alt="Sort Descending" 
-                   src="{{ url_for('static', 
-                        filename='resources/images/down.svg') }}" />
-            </a>
+            <img id="{{ table_titles[x].lower() }}-sortasc-{{ i }}" 
+                 class="sortasc" 
+                 alt="Sort Ascending"
+                 src="{{ url_for('static', 
+                      filename='resources/images/up.svg') }}" />
+            <img id="{{ table_titles[x].lower() }}-sortdesc-{{ i }}" 
+                 class="sortdesc"
+                 alt="Sort Descending" 
+                 src="{{ url_for('static', 
+                      filename='resources/images/down.svg') }}" />
           </th>
           {% endfor %}
 
@@ -86,7 +86,7 @@
           
         {% for i in range((df_dict[table_titles[x]]['keys_list']|length)-1) %}
         {% for k in range(df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][i+1]]|length) %}
-        <tr id="{{ table_titles[x].lower() }}-{{ i+1 }}" key="{{ k }}">
+        <tr id="{{ table_titles[x].lower() }}-{{ i+1 }}-datarow-{{ k }}" class="{{ table_titles[x].lower() }}-{{ i+1 }}-datarows" key="{{ k }}">
           {% for w in range(df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][i+1]][k]|length) %}
           {% if k != 0 and w == 0 %}
           {% if df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][i+1]][k][w] == df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][i+1]][k-1][w] %}
@@ -111,8 +111,5 @@
   </div>
 </div>
 {% endfor %}
-
-<script src="{{ url_for('static', filename='javascripts/main.js') }}">
-</script>
 
 {% endblock %}

@@ -46,6 +46,7 @@ svg, path,
   -webkit-user-select: text;
   -moz-user-select: text;
   user-select: text;
+  cursor: text;
 }
 
 #container {
@@ -204,7 +205,9 @@ a h2,
 g#logo,
 svg,
 path,
-.paths {
+.paths,
+img.sortasc,
+img.sortdesc {
   cursor: pointer;
 }
 

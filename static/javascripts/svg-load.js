@@ -59,7 +59,7 @@ $(document).ready(function() {
         color: 'gold',
         strokeWidth: 11,
         fill: 'none',
-        duration: 4
+        duration: 5
       });
     }
   }
