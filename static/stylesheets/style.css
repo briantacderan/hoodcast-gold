@@ -86,7 +86,7 @@ td, th {
 }
 
 th, .table-descriptor {
-  font-size:14px;
+  font-size: 14px;
 }
 
 td.table-value {
@@ -176,11 +176,11 @@ h2#hidden.subheader:hover {
 }
 
 .hoodcast-table th:nth-child(-n+3) {
-  width:15%;
+  width: 15%;
 }
 
 .hoodcast-table th:nth-child(n+4) {
-  width:20%;
+  width: 20%;
 }
 
 .site-main-background {
@@ -213,7 +213,7 @@ path,
     width: 95%;
   }
 
-  svg, path, 
+  svg, path,
   #hoodcast-icon,
   #hoodcast_x6F_logo,
   #hoodcast-icon img {
@@ -236,7 +236,7 @@ path,
     height: 50%;
   }
     
-  svg, path,  
+  svg, path,
   #hoodcast-icon,
   #hoodcast_x6F_logo,
   #hoodcast-icon img {

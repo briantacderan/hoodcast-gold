@@ -17,24 +17,22 @@ def index():
         name = form.name.data.lower().title()
         form_type = form.form_type.data
         year = form.year.data
-        next_page = request.args.get('next')
         
+        next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('metrics', name=name, form_type=form_type, 
-                                year=year, table='Balance', sort='new', 
-                                col_index=1)
+            next_page = url_for('metrics', name=name, 
+                                form_type=form_type, year=year)
         return redirect(next_page)
     return render_template('landing_page.html', 
                            form=form, companies=companies)
 
 
-@app.route('/MOBBIN/<name>/<form_type>/<year>/<table>/<sort>/<col_index>', 
-           methods=['GET', 'POST'])
-def metrics(name, form_type, year, table, sort, col_index):
+@app.route('/mobbin-results/<name>/<form_type>/<year>', methods=['GET', 'POST'])
+def metrics(name, form_type, year):
+    company = Company.query.filter_by(title=name).first()
+    statement = Statement.query.filter_by(company_id=company.id).first()
     current = dt.datetime.now()
     date_array = [current]
-    company = Company.query.filter_by(title=name).first()
-    statement = Statement.query.filter_by(company=name).first()
 
     for i in range(5):
         fortnite = dt.timedelta(days=14)
@@ -55,7 +53,8 @@ def metrics(name, form_type, year, table, sort, col_index):
     df_array, file_array, table_titles, engine, session = \
     mobb.statements_to_sql()
     
-    table_list = ['Balance', 'Income', 'Operation', 'Equity', 'Cash']
+    table_list = ['Balance', 'Income', 'Operations', 'Equity', 'Cash']
+    sort_list = ['new', 'asc', 'desc']
     bala, inco, oper, equi, cash = [None] * 5
     table_val = [bala, inco, oper, equi, cash]
     
@@ -85,14 +84,31 @@ def metrics(name, form_type, year, table, sort, col_index):
             db.session.rollback()
             return redirect(url_for('index'))
     
-    columns = session.execute(f"SELECT * FROM {table}").keys()
-    
-    if sort != 'new':
-        df = session.execute(f"SELECT * FROM {table} ORDER BY \
-        `{columns[int(col_index)]}` {sort}").fetchall()
-    else:
-        df = session.execute(f"SELECT * FROM {table}").fetchall()
-        
+    df_dict = {}
+
+    for i in range(len(table_titles)):
+        df_dict[table_titles[i]] = {}
+        columns = session.execute(f"SELECT * FROM {table_titles[i]}").keys()
+        df_dict[table_titles[i]]['columns'] = list(columns)
+
+        for j in range(len(sort_list)):
+
+            for k in range(len(columns)):
+                dict_str = f"col_{k}_{sort_list[j]}"
+                if j == 0 and k > 0:
+                    continue
+                elif j == 0:
+                    df_dict[table_titles[i]]['new'] = \
+                    session.execute(f"SELECT * FROM {table_titles[i]}")\
+                    .fetchall()
+                else:
+                    df_dict[table_titles[i]][dict_str] = \
+                    session.execute(f"SELECT * FROM {table_titles[i]} ORDER BY \
+                    `{columns[k]}` {sort_list[j]}").fetchall()
+
+        df_dict[table_titles[i]]['keys_list'] = \
+        list(df_dict[table_titles[i]].keys())
+
     ratios = SearchResults(mobb, robb, session)
     form = SearchForm()
     companies = Company.query.with_entities(Company.title).all()
@@ -101,20 +117,15 @@ def metrics(name, form_type, year, table, sort, col_index):
         name = form.name.data.lower().title()
         form_type = form.form_type.data
         year = form.year.data
-        next_page = request.args.get('next')
-        table = request.args.get('table') 
-        sort = request.args.get('sort') 
-        col_index = request.args.get('col_index')
         
+        next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('metrics', name=name, form_type=form_type, 
-                                year=year, table='Balance', sort='new', 
-                                col_index=1)
-            
+                                year=year)
         return redirect(next_page)
     
     return render_template('metrics.html', form=form, name=name, 
-                           form_type=form_type, year=year, table=table, 
-                           sort=sort, col_index=col_index, company=company, 
+                           form_type=form_type, year=year, company=company, 
                            ratios=ratios, table_titles=table_titles, 
-                           df=df, columns=columns, companies=companies)
+                           columns=columns, companies=companies,
+                           session=session, df_dict=df_dict)

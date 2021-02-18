@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-<script src="{{ url_for('static', filename='javascripts/main.js') }}">
-</script>
-
 <div>
   <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
   <table id="company-detail-table">
@@ -42,72 +39,80 @@
   </table>
 </div>
 
-<div>
-  <h2 id="active" class="subheader">{{ table.upper() }}</h2>
+{% for x in range(table_titles|length) %}
+<div id="to-{{ table_titles[x].lower() }}">
+  <h2 id="active" class="subheader">{{ table_titles[x].upper() }}</h2>
   click to view:
-  <select name="new_table" onchange="location=this.value;">
-  {% for new_table in table_titles %}
-    {% if new_table == table %}
-    <option value="the {{ new_table }} table" SELECTED>
-      the {{ new_table }} table
+  <select id="{{ table_titles[x].lower() }}-selector">
+
+  {% for table in table_titles %}
+    {% if table == table_titles[x] %}
+    <option value="{{ table.lower() }}" SELECTED>
+      the {{ table }} table
     </option>
     {% else %}
-    <option value="{{ url_for('metrics', name=name, form_type=form_type, 
-                   year=year, table=new_table, sort='new', col_index=1) }}">
-      the {{ new_table }} table
+    <option value="{{ table.lower() }}">
+      the {{ table }} table
     </option>
     {% endif %}
   {% endfor %}
+      
   </select>
     
   <div class="table-container">
-      <table class="hoodcast-table">
-        <tbody>
-          <tr class="table-header hoodcast-header">
+    <table class="hoodcast-table">
+      <tbody>
+        <tr class="table-header hoodcast-header">
 
-            {% for i in range(columns|length) %}  
-            <th>
-              {{ columns[i].lower().title() }}
-              <a href="{{ url_for('metrics', name=name, form_type=form_type, 
-                       year=year, table=table.lower().title(), sort='ASC', 
-                       col_index=i) }}">
-                <img class="sort" 
-                     alt="Sort Ascending" 
-                     src="{{ url_for('static', 
-                          filename='resources/images/up.svg') }}" />
-              </a>
-              <a href="{{ url_for('metrics', name=name, form_type=form_type, 
-                       year=year, table=table.lower().title(), sort='DESC', 
-                       col_index=i) }}">
-                <img class="sort" 
-                     alt="Sort Descending" 
-                     src="{{ url_for('static', 
-                          filename='resources/images/down.svg') }}" />
-              </a>
-            </th>
-            {% endfor %}
+          {% for column in df_dict[table_titles[x]]['columns'] %}
+          <th id="headers">
+            {{ column.lower().title() }}
+            <a href="{{ url_for('metrics', name=name, form_type=form_type, 
+                     year=year) }}">
+              <img class="sort" 
+                   alt="Sort Ascending"
+                   src="{{ url_for('static', 
+                        filename='resources/images/up.svg') }}" />
+            </a>
+            <a href="{{ url_for('metrics', name=name, form_type=form_type, 
+                     year=year) }}">
+              <img class="sort"
+                   alt="Sort Descending" 
+                   src="{{ url_for('static', 
+                        filename='resources/images/down.svg') }}" />
+            </a>
+          </th>
+          {% endfor %}
 
-          </tr>
+        </tr>
 
-          {% for i in range(df|length) %} 
-          <tr key="{{ i }}">
-            {% for j in range(df[i]|length) %}
-            {% if i != 0 and j == 0 %}
-            {% if df[i][j] == df[i-1][j] %}
-            <td key="row{{ i }}-{{ j }}"></td>  
-            {% else %}
-            <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
-            {% endif %}
-            {% else %}
-            <td key="row{{ i }}-{{ j }}">{{ df[i][j] }}</td>
-            {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}  
+        {% for k in range(df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]]|length) %}
+        <tr key="{{ k }}">
+          {% for w in range(df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]][k]|length) %}
+          {% if k != 0 and w == 0 %}
+          {% if df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]][k][w] == df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]][k-1][w] %}
+          <td key="row{{ k }}-{{ w }}"></td>
+          {% else %}
+          <td key="row{{ k }}-{{ w }}">
+            {{ df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]][k][w] }}
+          </td>
+          {% endif %}
+          {% else %}
+          <td key="row{{ k }}-{{ w }}">
+            {{ df_dict[table_titles[x]][df_dict[table_titles[x]]['keys_list'][1]][k][w] }}
+          </td>
+          {% endif %}
+          {% endfor %}
+        </tr>
+        {% endfor %}  
 
-        </tbody>
-      </table>
+      </tbody>
+    </table>
   </div>
 </div>
+{% endfor %}
+
+<script src="{{ url_for('static', filename='javascripts/main.js') }}">
+</script>
 
 {% endblock %}
