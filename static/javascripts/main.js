@@ -11,7 +11,7 @@ $(document).ready(function() {
   container.style.height = '75vh';
       
   var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
-  for (i=0; i<5; i++) {
+  for (var i=0; i<5; i++) {
     if ($(`#to-${tables[i]}`)) {
       if (i !== idx) {
         $(`#to-${tables[i]}`).hide();
@@ -35,6 +35,7 @@ $(document).ready(function() {
   var hedCount;
   var sortButton;
   var newSort;
+  var oldSort;
   var t;  
     
   for (i=0; i<5; i++) {
@@ -42,33 +43,31 @@ $(document).ready(function() {
     if ($(`#table-${t}`)) {
       hedCount = $(`#table-${t} th`).length;
       rowCount = $(`#table-${t} tr`).length;
-      newSort = 1;
-      for (j=2; j<(hedCount+2); j++) {
-        for (k=0; k<rowCount; k++) {
+      oldSort = 1;
+      for (var j=2; j<(hedCount+2); j++) {
+        for (var k=0; k<rowCount; k++) {
           $(`#${t}-${j}-datarow-${k}`).hide();
         }
         sortButton = document.getElementById(`${t}-sortasc-${j-2}`);
-        console.log(sortButton);
-        sortButton.addEventListener('click', function() {
-          $(`#${t}-${newSort}-datarow-${k}`).hide();
-          newSort = j;
-          for (k=1; k<rowCount; k++) {
-            $(`#${t}-${newSort}-datarow-${k}`).show();
+        sortButton.addEventListener('mousedown', function() {
+          for (var k=1; k<rowCount; k++) {
+            $(`#${t}-${oldSort}-datarow-${k}`).hide();
+            $(`#${t}-${j}-datarow-${k}`).show();
           }
+          oldSort = j
         });
       }
-      for (j=(2+hedCount); j<(hedCount*2+2); j++) {
-        for (k=0; k<rowCount; k++) {
+      for (var j=(2+hedCount); j<(hedCount*2+2); j++) {
+        for (var k=0; k<rowCount; k++) {
           $(`#${t}-${j}-datarow-${k}`).hide();
         }
         sortButton = document.getElementById(`${t}-sortdesc-${j-2-hedCount}`);
-        console.log(sortButton)
-        sortButton.addEventListener('click', function() {
-          $(`#${t}-${newSort}-datarow-${k}`).hide();
-          newSort = j;
-          for (k=1; k<rowCount; k++) {
-            $(`#${t}-${newSort}-datarow-${k}`).show();
+        sortButton.addEventListener('mousedown', function() {
+          for (var k=1; k<rowCount; k++) {
+            $(`#${t}-${oldSort}-datarow-${k}`).hide();
+            $(`#${t}-${j}-datarow-${k}`).show();
           }
+          oldSort = j
         });
       }
     }

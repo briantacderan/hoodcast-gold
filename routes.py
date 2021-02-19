@@ -128,4 +128,5 @@ def metrics(name, form_type, year):
                            form_type=form_type, year=year, company=company, 
                            ratios=ratios, table_titles=table_titles, 
                            columns=columns, companies=companies,
-                           session=session, df_dict=df_dict)
+                           session=session, df_dict=df_dict, 
+                           scrollToAnchor='head')

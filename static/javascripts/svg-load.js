@@ -38,10 +38,12 @@ $(document).ready(function() {
     } 
   }(jQuery));
     
+  
   function handleEvent(e) {
     if (e) {
-      $('#hoodcast_x6F_logo path').show();
       $('#main-logo').hide();
+      $('#hoodcast_x6F_logo path').show();
+        
       $('#hoodcast_x6F_logo path').drawSVG({
         color: 'gold',
         strokeWidth: 11,
