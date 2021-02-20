@@ -18,19 +18,6 @@ body div#hoodcast-icon:nth-child(1) {
   align-self: flex-end;
 }
 
-#container {
-  position: absolute;
-  top: 100px;
-  display: none;
-  background-color: #FFF;
-  color: #000;
-  width: 70%;
-  margin: 0;
-  border-radius: 10px;
-  overflow-y: scroll;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-}
-
 #hoodcast-icon,
 a#icon-link {
   margin-right: 15%;
@@ -45,6 +32,12 @@ img#main-logo {
   top: 0;
   width: 100%;
   max-width: 200px;
+}
+
+img#main-logo {
+  position: absolute;
+  margin-left: auto;
+  margin-right: 15%;
 }
 
 svg path {
@@ -63,6 +56,19 @@ g#logo {
 #form-panels {
   display: flex;
   flex-direction: column;
+}
+
+#container {
+  position: absolute;
+  top: 100px;
+  display: none;
+  background-color: #FFF;
+  color: #000;
+  width: 70%;
+  margin: 0;
+  border-radius: 10px;
+  overflow-y: scroll;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
 #search {
@@ -256,6 +262,10 @@ img.sortdesc {
     max-width: 160px;
   }
     
+  img#main-logo {
+    margin-right: 5%;
+  }
+    
   #hoodcast-search-button {
     width: 180px;
     font-size: 2rem;
@@ -304,25 +314,23 @@ img.sortdesc {
 
 @media only screen and (max-height: 500px) {
   #container {
-    margin: 0 auto;
-    bottom: 1rem;
-  }
+    top: 72px;
+  }  
     
   svg#hoodcast-logo,
   img#main-logo {
-    width: 50%;
-    max-width: 200px;
+    max-width: 125px;
   }
     
   .hoodcast-search-input {
-    width: 225px;
+    width: 200px;
     height: 2rem;
     border-radius: 3px;
     padding-left: 50px;
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 0.9;
     letter-spacing: 0.3px;
-    padding-top: 4px;
+    padding: 0.1rem 0 0 1rem;
   }
     
   #hoodcast-search-button {
@@ -330,13 +338,17 @@ img.sortdesc {
     height: 40px;
     font-size: 1.4rem;
   }
+
+  #search {
+    padding: 1rem;    
+  }
+    
+  #hoodcast-search-button {
+    margin-top: 0.5rem;
+  }
     
   .site-main-background {
     height: 250px;
-  }
-    
-  #container {
-    margin: 0 auto;
   }
 }
 

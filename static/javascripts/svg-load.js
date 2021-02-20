@@ -43,7 +43,6 @@ $(document).ready(function() {
     if (e) {
       $('#main-logo').hide();
       $('#hoodcast-logo path').show();
-        
       $('#hoodcast-logo path').drawSVG({
         color: 'gold',
         strokeWidth: 11,
@@ -55,8 +54,8 @@ $(document).ready(function() {
     
   function handleKeyEvent(e) {
     if (e.code === 'Enter') {
-      $('#hoodcast-logo path').show();
       $('#main-logo').hide();
+      $('#hoodcast-logo path').show();
       $('#hoodcast-logo path').drawSVG({
         color: 'gold',
         strokeWidth: 11,
