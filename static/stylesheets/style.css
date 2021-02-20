@@ -5,11 +5,59 @@ body {
   line-height: 1.38;
   letter-spacing: 0.4px;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: gray;
+  position: relative;
 }
 
-svg, path,
-#hoodcast-icon {
-  max-width: 300px;
+body div#hoodcast-icon:nth-child(1) {
+  align-self: flex-end;
+}
+
+#container {
+  position: absolute;
+  top: 100px;
+  display: none;
+  background-color: #FFF;
+  color: #000;
+  width: 70%;
+  margin: 0;
+  border-radius: 10px;
+  overflow-y: scroll;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+#hoodcast-icon,
+a#icon-link {
+  margin-right: 15%;
+}
+
+svg#hoodcast-logo,
+img#main-logo {
+  margin: 2rem 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  max-width: 200px;
+}
+
+svg path {
+  width: 100%;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  stroke: gold;
+  fill: gray;
+}
+
+g#logo {
+  z-index: 1001;
 }
 
 #form-panels {
@@ -17,11 +65,11 @@ svg, path,
   flex-direction: column;
 }
 
-#hoodcast-icon img {
-  position: absolute;
-  max-width: 300px;
-  left: 0;
-  right: 0;
+#search {
+  display: block;
+  padding: 32px 0;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hoodcast-search {
@@ -47,26 +95,6 @@ svg, path,
   -moz-user-select: text;
   user-select: text;
   cursor: text;
-}
-
-#container {
-  top: 150px;
-  display: none;
-  background-color: #FFF;
-  color: #000;
-  width: 65%;
-  margin: 0 auto;
-  padding: var(--space);
-  border-radius: 10px;
-  overflow-y: scroll;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-}
-
-#search {
-  display: block;
-  padding: 32px 0;
-  margin: 0 auto;
-  width: 100%;
 }
 
 .table-container {
@@ -212,17 +240,20 @@ img.sortdesc {
   cursor: pointer;
 }
 
-@media (max-width: 750px) {
+@media only screen and (max-width: 850px) {
   #container {
-    width: 95%;
+    width: 92%;
+    top: 88px;
+  }
+    
+  #hoodcast-icon,
+  a#icon-link {
+    margin-right: 5%;
   }
 
-  svg, path,
-  #hoodcast-icon,
-  #hoodcast_x6F_logo,
-  #hoodcast-icon img {
-    width: 50%;
-    max-width: 200px;
+  svg#hoodcast-logo,
+  img#main-logo {
+    max-width: 160px;
   }
     
   #hoodcast-search-button {
@@ -235,26 +266,77 @@ img.sortdesc {
   }
 }
 
-@media (max-height: 600px) {
+@media only screen and (max-width: 500px) {
   #container {
-    height: 50%;
+    top: 72px;
+  }  
+    
+  svg#hoodcast-logo,
+  img#main-logo {
+    max-width: 125px;
   }
     
-  svg, path,
-  #hoodcast-icon,
-  #hoodcast_x6F_logo,
-  #hoodcast-icon img {
+  .hoodcast-search-input {
+    width: 200px;
+    height: 2rem;
+    border-radius: 3px;
+    padding-left: 50px;
+    font-size: 0.75rem;
+    line-height: 0.9;
+    letter-spacing: 0.3px;
+    padding: 0.1rem 0 0 1rem;
+  }
+    
+  #hoodcast-search-button {
+    width: 140px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+
+  #search {
+    padding: 1rem;    
+  }
+    
+  #hoodcast-search-button {
+    margin-top: 0.5rem;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  #container {
+    margin: 0 auto;
+    bottom: 1rem;
+  }
+    
+  svg#hoodcast-logo,
+  img#main-logo {
     width: 50%;
     max-width: 200px;
   }
     
+  .hoodcast-search-input {
+    width: 225px;
+    height: 2rem;
+    border-radius: 3px;
+    padding-left: 50px;
+    font-size: 1rem;
+    line-height: 0.9;
+    letter-spacing: 0.3px;
+    padding-top: 4px;
+  }
+    
   #hoodcast-search-button {
-    width: 180px;
-    font-size: 2rem;
+    width: 140px;
+    height: 40px;
+    font-size: 1.4rem;
   }
     
   .site-main-background {
     height: 250px;
+  }
+    
+  #container {
+    margin: 0 auto;
   }
 }
 

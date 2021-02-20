@@ -1,7 +1,7 @@
 $(document).ready(function() {  
     
   (function($) {
-    $('#hoodcast_x6F_logo path').hide();  
+    $('#hoodcast-logo path').hide();  
     
     $.fn.drawSVG = function(options) {
       var settings = $.extend({
@@ -42,9 +42,9 @@ $(document).ready(function() {
   function handleEvent(e) {
     if (e) {
       $('#main-logo').hide();
-      $('#hoodcast_x6F_logo path').show();
+      $('#hoodcast-logo path').show();
         
-      $('#hoodcast_x6F_logo path').drawSVG({
+      $('#hoodcast-logo path').drawSVG({
         color: 'gold',
         strokeWidth: 11,
         fill: 'none',
@@ -55,9 +55,9 @@ $(document).ready(function() {
     
   function handleKeyEvent(e) {
     if (e.code === 'Enter') {
-      $('#hoodcast_x6F_logo path').show();
+      $('#hoodcast-logo path').show();
       $('#main-logo').hide();
-      $('#hoodcast_x6F_logo path').drawSVG({
+      $('#hoodcast-logo path').drawSVG({
         color: 'gold',
         strokeWidth: 11,
         fill: 'none',
