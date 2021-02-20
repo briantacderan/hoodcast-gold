@@ -105,12 +105,14 @@
     {% if scrollToAnchor %}
     <script>  
       var body = document.querySelector('body');
-      var container = document.getElementById('container');
       document.addEventListener('DOMContentLoaded', function() {
         document.location.hash = '#{{ scrollToAnchor }}';
       });
       body.style.background = 'white';
-      container.style.height = '75vh';
+        
+      if ($(window).width() > 500) {
+        container.style.height = '75vh';
+      }
     </script>
     {% endif %}
     

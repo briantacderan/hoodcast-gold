@@ -40,7 +40,7 @@ $(document).ready(function() {
     
   
   function handleEvent(e) {
-    if (e) {
+    if (e && $(window).width() > 500) {
       $('#main-logo').hide();
       $('#hoodcast-logo path').show();
       $('#hoodcast-logo path').drawSVG({
@@ -53,7 +53,7 @@ $(document).ready(function() {
   }
     
   function handleKeyEvent(e) {
-    if (e.code === 'Enter') {
+    if (e.code === 'Enter' && $(window).width() > 500) {
       $('#main-logo').hide();
       $('#hoodcast-logo path').show();
       $('#hoodcast-logo path').drawSVG({

@@ -3,14 +3,14 @@ $(document).ready(function() {
   var idx = 0;
   var body = document.querySelector('body');
   var container = document.getElementById('container');
+  var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
     
   var dfName = document.getElementById('balance-selector').value;
   var oldName;
   
+  container.setAttribute('class', 'new');
   body.style.background = 'white';
-  container.style.height = '75vh';
       
-  var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
   for (var i=0; i<5; i++) {
     if ($(`#to-${tables[i]}`)) {
       if (i !== idx) {
