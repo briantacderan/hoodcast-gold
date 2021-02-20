@@ -65,7 +65,7 @@ g#logo {
   background-color: #FFF;
   color: #000;
   width: 70%;
-  margin: 0;
+  margin-bottom: 20vh;
   border-radius: 10px;
   overflow-y: scroll;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -231,6 +231,45 @@ h2#hidden.subheader:hover {
   background-color: gray;
 }
 
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete-items {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  margin: 0 auto;
+  z-index: 99;
+  width: 304px;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: gold !important; 
+}
+
 .sort,
 .company-link,
 a,
@@ -278,8 +317,9 @@ img.sortdesc {
 
 @media only screen and (max-width: 500px) {
   #container {
-    top: 72px;
-  }  
+    width: 92vw;
+    top: 73px;
+  }
     
   svg#hoodcast-logo,
   img#main-logo {
@@ -295,6 +335,11 @@ img.sortdesc {
     line-height: 0.9;
     letter-spacing: 0.3px;
     padding: 0.1rem 0 0 1rem;
+  }
+    
+  .autocomplete-items {
+    width: 200px;
+    font-size: 0.75rem;
   }
     
   #hoodcast-search-button {
@@ -333,6 +378,11 @@ img.sortdesc {
     padding: 0.1rem 0 0 1rem;
   }
     
+  .autocomplete-items {
+    width: 200px;
+    font-size: 0.75rem;
+  }
+    
   #hoodcast-search-button {
     width: 140px;
     height: 40px;
@@ -350,43 +400,4 @@ img.sortdesc {
   .site-main-background {
     height: 250px;
   }
-}
-
-.autocomplete {
-  position: relative;
-}
-
-.autocomplete-items {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  margin: 0 auto;
-  z-index: 99;
-  width: 304px;
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-
-.autocomplete-items div {
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-
-/*when hovering an item:*/
-.autocomplete-items div:hover {
-  background-color: #e9e9e9; 
-}
-
-/*when navigating through the items using the arrow keys:*/
-.autocomplete-active {
-  background-color: gold !important; 
 }
