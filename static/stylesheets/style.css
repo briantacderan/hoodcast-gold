@@ -126,11 +126,7 @@ td, th {
   vertical-align: middle;
 }
 
-th.t-head {
-  font-size: ;
-}
-
-th, .table-descriptor {
+th, td.table-descriptor {
   font-size: 14px;
 }
 
@@ -151,16 +147,14 @@ tr.financials {
 }
 
 tr.financials td {
-  font-size: 12px;
   width: 100px;
 }
 
 tr.financials td.sig {
-  font-size: 14px;
+    
 }
 
 tr.financials td.row-last {
-  font-size: 14px;
   border-top: solid 2px #000;
   border-bottom: solid 4px #000;
 }
@@ -371,6 +365,24 @@ img.sortdesc {
     line-height: 0.9;
     letter-spacing: 0.3px;
     padding: 0.1rem 0 0 1rem;
+  }
+    
+  th, td {
+    font-size: 12px;
+  }
+  
+  td.table-descriptor,
+  td.table-value,
+  th.t-head {
+    font-size: 14px;
+  }
+
+  tr.financials td.sig {
+    font-size: 14px;
+  }
+
+  tr.financials td.row-last {
+    font-size: 14px;
   }
     
   .autocomplete-items {

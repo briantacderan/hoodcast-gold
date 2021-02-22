@@ -73,6 +73,7 @@
           {% for i in range(jint['columns']|length) %}
           <th id="headers-{{ x }}-{{ i }}" class="t-head">
             {{ jint['columns'][i].lower().title().strip('| ') }}
+            <br>
             <img id="{{ jt.lower() }}-sortasc-{{ i }}" 
                  class="sortasc" 
                  alt="Sort Ascending"
