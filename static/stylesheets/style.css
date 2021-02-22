@@ -142,12 +142,45 @@ tr {
   height: 50px;
 }
 
+tr.table-header {
+  position: relative;
+}
+
+/*
+tr.table-header.fixed-row {
+  position: fixed;
+  top: 100px;
+  width: 70vw;
+}
+
+.table-container.move-down {
+  top: 100px;
+}
+*/
+
 tr.financials {
   height: 35px;
 }
 
 tr.financials td {
   width: 100px;
+  padding-right: 1rem;
+}
+
+tr.financials td.gold-top {
+  text-align: right;
+  border-top: solid 2px gold;
+}
+
+tr.financials td.t-account {
+  text-align: left;
+  font-size: 14px;
+}
+
+tr.financials td.number {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 tr.financials td.sig {
@@ -156,7 +189,7 @@ tr.financials td.sig {
 
 tr.financials td.row-last {
   border-top: solid 2px #000;
-  border-bottom: solid 4px #000;
+  border-bottom: thick double #000;
 }
 
 tr.financials td.neg-red {

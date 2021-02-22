@@ -120,5 +120,10 @@
       container.style.display = 'block';
     </script>
       
+    {% if scrollToAnchor %}
+    <script src="{{ url_for('static',
+                 filename='javascripts/post-load.js') }}"></script>
+    {% endif %}
+      
   </body>
 </html>

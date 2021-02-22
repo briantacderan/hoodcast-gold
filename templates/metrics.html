@@ -3,6 +3,8 @@
 
 <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
 
+{% set results = ratios.get_ratio() %}
+
 <div>
   <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
   <table id="company-detail-table">
@@ -13,9 +15,9 @@
         <td class="table-descriptor">ACID TEST</td>
       </tr>
       <tr>
-        <td class="table-value">{{ ratios.get_ratio()[0] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[1] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[2] }}</td>
+        <td class="table-value">{{ results[0] }}</td>
+        <td class="table-value">{{ results[1] }}</td>
+        <td class="table-value">{{ results[2] }}</td>
       </tr>
       <tr>
         <td class="table-descriptor">DEBT-EQUITY</td>
@@ -23,9 +25,9 @@
         <td class="table-descriptor">PRICE-EARNINGS</td>
       </tr>
       <tr>
-        <td class="table-value">{{ ratios.get_ratio()[3] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[4] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[5] }}</td>
+        <td class="table-value">{{ results[3] }}</td>
+        <td class="table-value">{{ results[4] }}</td>
+        <td class="table-value">{{ results[5] }}</td>
       </tr>
       <tr>
         <td class="table-descriptor">RETURN ON EQUITY</td> 
@@ -33,9 +35,9 @@
         <td class="table-descriptor">WC TURNOVER</td>
       </tr>
       <tr>
-        <td class="table-value">{{ ratios.get_ratio()[6] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[7] }}</td>
-        <td class="table-value">{{ ratios.get_ratio()[8] }}</td>
+        <td class="table-value">{{ results[6] }}</td>
+        <td class="table-value">{{ results[7] }}</td>
+        <td class="table-value">{{ results[8] }}</td>
       </tr>
     </tbody>
   </table>
@@ -89,7 +91,6 @@
 
         </tr>
           
-          
         {% for i in range((kls|length)-1) %}
           {% for k in range(jint[kls[i+1]]|length) %}
             <tr id="{{ jt.lower() }}-{{ i+1 }}-datarow-{{ k }}" 
@@ -97,39 +98,50 @@
                 key="{{ k }}">
             {% for w in range(jint[kls[i+1]][k]|length) %}
             {% set jval = jint[kls[i+1]][k][w] %}
-              {% if k != 0 and (w == 0 or w == 1) %}
+              {% if k != 0 and w == 0 %}
                 {% if jval == jint[kls[i+1]][k-1][w] %}
-                  <td key="row{{ k }}-{{ w }}"></td>
+                  <td class="t-category" key="row{{ k }}-{{ w }}"></td>
                 {% else %}
-                  <td key="row{{ k }}-{{ w }}">
+                  <td class="t-category gold-top" key="row{{ k }}-{{ w }}">
                     {{ jval.strip(' |') }}
                   </td>
                 {% endif %}
+              {% elif w == 1 %}
+                  <td id="{{ jt.lower() }}-acct-{{ k }}" 
+                      class="t-account" key="row{{ k }}-{{ w }}">
+                    {{ jval.strip(' |') }}
+                  </td>
               {% elif (k == 0 or k == (jint[kls[i+1]]|length) - 1) and w >= 2 %}
                 {% if k == 0 and (jval|string)[0] == '-' %}
-                  <td class="number row-first neg-red sig" key="row{{ k }}-{{ w }}">
-                    $({{ (jval|string).split('.')[0][1:] }})
+                  <td class="number row-first neg-red sig" 
+                      key="row{{ k }}-{{ w }}">
+                    $ ({{ (jval|string).split('.')[0][1:] }})
                   </td> 
                 {% elif k == 0 %}
-                  <td class="number row-first sig" key="row{{ k }}-{{ w }}">
-                    ${{ (jval|string).split('.')[0] }}
+                  <td class="number row-first sig" 
+                      key="row{{ k }}-{{ w }}">
+                    $ {{ (jval|string).split('.')[0] }}
                   </td>
                 {% elif k == (jint[kls[i+1]]|length) - 1 and (jval|string)[0] == '-' %}
-                  <td class="number row-last neg-red sig" key="row{{ k }}-{{ w }}">
-                    $({{ (jval|string).split('.')[0][1:] }})
+                  <td class="number row-last neg-red sig" 
+                      key="row{{ k }}-{{ w }}">
+                    $ ({{ (jval|string).split('.')[0][1:] }})
                   </td> 
                 {% else %}
-                  <td class="number row-last sig" key="row{{ k }}-{{ w }}">
-                    ${{ (jval|string).split('.')[0] }}
+                  <td class="number row-last sig" 
+                      key="row{{ k }}-{{ w }}">
+                    $ {{ (jval|string).split('.')[0] }}
                   </td>
                 {% endif %}
               {% else %}
                 {% if (jval|string)[0] == '-' %}
-                  <td class="neg-red number" key="row{{ k }}-{{ w }}">
+                  <td class="number {{ jt.lower() }}-data-{{ k }} neg-red" 
+                      key="row{{ k }}-{{ w }}">
                     ({{ (jval|string).split('.')[0][1:] }})
                   </td>
                 {% else %}
-                  <td class="number" key="row{{ k }}-{{ w }}">
+                  <td class="number {{ jt.lower() }}-data-{{ k }}" 
+                      key="row{{ k }}-{{ w }}">
                     {{ (jval|string).split('.')[0] }}
                   </td>  
                 {% endif %}
