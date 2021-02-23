@@ -103,15 +103,15 @@
                  filename='javascripts/svg-load.js') }}"></script>
       
     {% if scrollToAnchor %}
-    <script>  
+    <script>
       var body = document.querySelector('body');
       document.addEventListener('DOMContentLoaded', function() {
         document.location.hash = '#{{ scrollToAnchor }}';
       });
-      body.style.background = 'white';
-        
+      body.style.background = 'white'; 
       if ($(window).width() > 500) {
         container.style.height = '740px';
+        container.style.maxHeight = '80%';
       }
     </script>
     {% endif %}

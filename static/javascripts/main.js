@@ -54,7 +54,7 @@ $(document).ready(function() {
             $(`#${t}-${oldSort}-datarow-${k}`).hide();
             $(`#${t}-${j}-datarow-${k}`).show();
           }
-          oldSort = j
+          oldSort = j;
         });
       }
       for (var j=(2+hedCount); j<(hedCount*2+2); j++) {
@@ -67,7 +67,7 @@ $(document).ready(function() {
             $(`#${t}-${oldSort}-datarow-${k}`).hide();
             $(`#${t}-${j}-datarow-${k}`).show();
           }
-          oldSort = j
+          oldSort = j;
         });
       }
     }
