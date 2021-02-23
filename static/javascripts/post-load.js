@@ -1,16 +1,5 @@
 $(document).ready(function() {
-    
-  /*$('#container').scroll(function(){
-    if ($('#container').scrollTop() >= 800) {
-      $('tr.table-header').addClass('fixed-row');
-      $('.table-container').addClass('move-down');
-    }
-    else {
-      $('tr.table-header').removeClass('fixed-row');
-      $('.table-container').removeClass('move-down');
-    }
-  });*/
-  
+ 
   var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
   var wordArr = ['Total', 'Gross', 'Loss Before', 'Loss from', 'Net loss', 'Net cash', 'Net increase', 'Balance'];
   var dblArr = ['Total assets'];

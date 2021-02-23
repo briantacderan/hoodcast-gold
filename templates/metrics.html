@@ -69,32 +69,37 @@
 
   <div class="table-container">
     <table id="table-{{ jt.lower() }}" class="hoodcast-table">
-      <tbody>
-        <tr class="table-header hoodcast-header">
+      <tbody id="statement-body">
+        <div class="scroller">
+          <tr class="table-header hoodcast-header">
+         
 
-          {% for i in range(jint['columns']|length) %}
-          <th id="headers-{{ x }}-{{ i }}" class="t-head">
-            {{ jint['columns'][i].lower().title().strip('| ') }}
-            <br>
-            <img id="{{ jt.lower() }}-sortasc-{{ i }}" 
-                 class="sortasc" 
-                 alt="Sort Ascending"
-                 src="{{ url_for('static', 
-                      filename='resources/images/up.svg') }}" />
-            <img id="{{ jt.lower() }}-sortdesc-{{ i }}" 
-                 class="sortdesc"
-                 alt="Sort Descending" 
-                 src="{{ url_for('static', 
-                      filename='resources/images/down.svg') }}" />
-          </th>
-          {% endfor %}
+            {% for i in range(jint['columns']|length) %}
+            <th id="headers-{{ x }}-{{ i }}" 
+                class="t-head {{ jt.lower() }}-h-{{ i }}">
+              {{ jint['columns'][i].lower().title().strip('| ') }}
+              <br>
+              <img id="{{ jt.lower() }}-sortasc-{{ i }}" 
+                   class="sortasc" 
+                   alt="Sort Ascending"
+                   src="{{ url_for('static', 
+                        filename='resources/images/up.svg') }}" />
+              <img id="{{ jt.lower() }}-sortdesc-{{ i }}" 
+                   class="sortdesc"
+                   alt="Sort Descending" 
+                   src="{{ url_for('static', 
+                        filename='resources/images/down.svg') }}" />
+            </th>
+            {% endfor %}
 
-        </tr>
-          
+          </tr>
+        </div>
+        
+        <div class="tracks">  
         {% for i in range((kls|length)-1) %}
           {% for k in range(jint[kls[i+1]]|length) %}
             <tr id="{{ jt.lower() }}-{{ i+1 }}-datarow-{{ k }}" 
-                class="{{ jt.lower() }}-{{ i+1 }}-datarows financials" 
+                class="{{ jt.lower() }}-{{ i+1 }}-datarows row-{{ i+1 }} financials" 
                 key="{{ k }}">
             {% for w in range(jint[kls[i+1]][k]|length) %}
             {% set jval = jint[kls[i+1]][k][w] %}
@@ -106,6 +111,10 @@
                     {{ jval.strip(' |') }}
                   </td>
                 {% endif %}
+              {% elif k == 0 and w == 0 %}
+                  <td class="t-category gold-top" key="row{{ k }}-{{ w }}">
+                    {{ jval.strip(' |') }}
+                  </td>
               {% elif w == 1 %}
                   <td id="{{ jt.lower() }}-acct-{{ k }}" 
                       class="t-account" key="row{{ k }}-{{ w }}">
@@ -150,6 +159,7 @@
             </tr>
           {% endfor %}  
         {% endfor %}
+        </div>
 
       </tbody>
     </table>
