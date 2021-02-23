@@ -1,4 +1,8 @@
 /* Universal Styles */
+html {
+  height: 100%;
+}
+
 body {
   font-family: Poppins, sans-serif;
   color: #FFF;
@@ -100,14 +104,15 @@ g#logo {
 }
 
 #container.new {
-  height: 500px;
-  max-height: 67%;
+  height: 100%;
+  max-height: 75%;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   -khtml-border-radius: 10px;
   border: 3px solid #fff;
   behavior: url(css/PIE.htc);
+  overscroll-behavior: none;
 }
 
 
@@ -225,11 +230,11 @@ td.table-value {
 
 /* Fin Statements */
 div.table-start {
-    
+  overscroll-behavior: none;
 }
 
 div.table-container {
-  
+  overscroll-behavior: none;
 }
 
 table.hoodcast-table {
@@ -457,6 +462,12 @@ img.sortdesc {
     min-width: 100px;
     font-size: 12px;
   }
+    
+  tbody#statement-body,
+  tr.table-header.hoodcast-header th.t-head {
+    -webkit-overflow-scrolling: touch;    
+  }
+  
 
   tr.financials td.sig {
     font-size: 14px;
