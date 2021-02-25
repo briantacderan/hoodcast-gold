@@ -1,4 +1,25 @@
 $(document).ready(function() {
+  
+  var isScroll = document.getElementById('container');
+  var scrollPoint;
+    
+  if ($(window).width() > 500) {  
+    scrollPoint = 819;
+    $('#container').scroll(function() {
+      $('#container').scrollTop() >= scrollPoint ? 
+      isScroll.style.overflowX = 'scroll' : isScroll.style.overflowX = 'hidden';
+      $('#container').scrollTop() < scrollPoint && $('#container').scrollLeft() !== 0 ?
+      $('#container').scrollTop(scrollPoint) : '';
+    });
+  } else {
+    scrollPoint = 638;
+    $('#container').scroll(function() {
+      $('#container').scrollTop() >= scrollPoint ? 
+      isScroll.style.overflowX = 'scroll' : isScroll.style.overflowX = 'hidden';
+      $('#container').scrollTop() < scrollPoint && $('#container').scrollLeft() !== 0 ?
+      $('#container').scrollTop(scrollPoint) : '';
+    });
+  }
  
   var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
   var wordArr = ['Total', 'Gross', 'Loss Before', 'Loss from', 'Net loss', 'Net cash', 'Net increase', 'Balance'];
@@ -25,7 +46,7 @@ $(document).ready(function() {
           tData = document.querySelectorAll(`.${tables[i]}-data-${idxCount}`);
           tData.forEach(data => {
             data.style.borderTop = 'solid 2px #000';
-            data.style.fontWeight = 'bold';
+            data.classList.add('acct-line');
             data.innerHTML = `$ ${data.innerHTML.trim()}`;
           });
           tData = undefined;
@@ -34,6 +55,7 @@ $(document).ready(function() {
           tData = document.querySelectorAll(`.${tables[i]}-data-${idxCount}`);
           tData.forEach(data => {
             data.style.borderBottom = 'thick double #000';
+            data.classList.add('acct-thick');
             if (data.innerHTML.trim()[0] !== '$') {
               data.innerHTML = `$ ${data.innerHTML.trim()}`;
             }

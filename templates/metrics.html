@@ -9,32 +9,32 @@
   <h2 id="head" class="subheader">{{ company.title.upper() }}</h2>
   <table id="company-detail-table">
     <tbody>
-      <tr>
+      <tr class="ratios">
         <td class="table-descriptor">WORKING CAPITAL</td>
         <td class="table-descriptor">DEBT RATIO</td>
         <td class="table-descriptor">ACID TEST</td>
       </tr>
-      <tr>
+      <tr class="ratios">
         <td class="table-value">{{ results[0] }}</td>
         <td class="table-value">{{ results[1] }}</td>
         <td class="table-value">{{ results[2] }}</td>
       </tr>
-      <tr>
+      <tr class="ratios">
         <td class="table-descriptor">DEBT-EQUITY</td>
         <td class="table-descriptor">EARNINGS PER SHARE</td>
         <td class="table-descriptor">PRICE-EARNINGS</td>
       </tr>
-      <tr>
+      <tr class="ratios">
         <td class="table-value">{{ results[3] }}</td>
         <td class="table-value">{{ results[4] }}</td>
         <td class="table-value">{{ results[5] }}</td>
       </tr>
-      <tr>
+      <tr class="ratios">
         <td class="table-descriptor">RETURN ON EQUITY</td> 
         <td class="table-descriptor">PRICE-BOOK</td>
         <td class="table-descriptor">WC TURNOVER</td>
       </tr>
-      <tr>
+      <tr class="ratios">
         <td class="table-value">{{ results[6] }}</td>
         <td class="table-value">{{ results[7] }}</td>
         <td class="table-value">{{ results[8] }}</td>
@@ -44,31 +44,31 @@
 </div>
 
 {% for x in range(table_titles|length) %}
-{% set jt = table_titles[x] %}
-<div id="to-{{ jt.lower() }}" class="table-start">
+{% set jt = table_titles[x].lower() %}
+<div id="to-{{ jt }}" class="table-start">
   <h2 id="active" class="subheader">{{ jt.upper() }}</h2>
-  click to view:
-  <select id="{{ jt.lower() }}-selector" class="selectors">
+  click to view: the
+  <select id="{{ jt }}-selector" class="selectors">
 
   {% for table in table_titles %}
-    {% if table == jt %}
+    {% if table == jt.title() %}
     <option value="{{ table.lower() }}" SELECTED>
-      the {{ table }} table
+      {{ table.lower() }}
     </option>
     {% else %}
     <option value="{{ table.lower() }}">
-      the {{ table }} table
+      {{ table.lower() }}
     </option>
     {% endif %}
   {% endfor %}
       
-  </select>
+  </select> table
   
-  {% set jint = df_dict[jt] %}
+  {% set jint = df_dict[jt.title()] %}
   {% set kls = jint['keys_list'] %}
 
   <div class="table-container">
-    <table id="table-{{ jt.lower() }}" class="hoodcast-table">
+    <table id="table-{{ jt }}" class="hoodcast-table">
       <tbody id="statement-body">
         <div class="scroller">
           <tr class="table-header hoodcast-header">
@@ -76,15 +76,15 @@
 
             {% for i in range(jint['columns']|length) %}
             <th id="headers-{{ x }}-{{ i }}" 
-                class="t-head {{ jt.lower() }}-h-{{ i }}">
+                class="t-head col-h-{{ i }} {{ jt }}-h-{{ i }}">
               {{ jint['columns'][i].lower().title().strip('| ') }}
               <br>
-              <img id="{{ jt.lower() }}-sortasc-{{ i }}" 
+              <img id="{{ jt }}-sortasc-{{ i }}" 
                    class="sortasc" 
                    alt="Sort Ascending"
                    src="{{ url_for('static', 
                         filename='resources/images/up.svg') }}" />
-              <img id="{{ jt.lower() }}-sortdesc-{{ i }}" 
+              <img id="{{ jt }}-sortdesc-{{ i }}" 
                    class="sortdesc"
                    alt="Sort Descending" 
                    src="{{ url_for('static', 
@@ -95,32 +95,35 @@
           </tr>
         </div>
         
-        <div class="tracks">  
+        <div class="tracks">
         {% for i in range((kls|length)-1) %}
           {% for k in range(jint[kls[i+1]]|length) %}
-            <tr id="{{ jt.lower() }}-{{ i+1 }}-datarow-{{ k }}" 
-                class="{{ jt.lower() }}-{{ i+1 }}-datarows row-{{ i+1 }} financials" 
+            <tr id="{{ jt }}-{{ i+1 }}-datarow-{{ k }}"
+                class="{{ jt }}-{{ i+1 }}-datarows row-{{ i+1 }} financials"
                 key="{{ k }}">
             {% for w in range(jint[kls[i+1]][k]|length) %}
             {% set jval = jint[kls[i+1]][k][w] %}
-              {% if k != 0 and w == 0 %}
-                {% if jval == jint[kls[i+1]][k-1][w] %}
+              {% if w == 0 %}
+                {% if k != 0 and jval == jint[kls[i+1]][k-1][w] %}
                   <td class="t-category" key="row{{ k }}-{{ w }}"></td>
                 {% else %}
                   <td class="t-category gold-top" key="row{{ k }}-{{ w }}">
                     {{ jval.strip(' |') }}
-                  </td>
+                  </td> 
                 {% endif %}
-              {% elif k == 0 and w == 0 %}
-                  <td class="t-category gold-top" key="row{{ k }}-{{ w }}">
-                    {{ jval.strip(' |') }}
-                  </td>
               {% elif w == 1 %}
-                  <td id="{{ jt.lower() }}-acct-{{ k }}" 
+                {% if k != 0 and jint[kls[i+1]][k][0] == jint[kls[i+1]][k-1][0] %}
+                  <td id="{{ jt }}-acct-{{ k }}"
                       class="t-account" key="row{{ k }}-{{ w }}">
                     {{ jval.strip(' |') }}
                   </td>
-              {% elif (k == 0 or k == (jint[kls[i+1]]|length) - 1) and w >= 2 %}
+                {% else %}
+                  <td id="{{ jt }}-acct-{{ k }}"
+                      class="t-account gold-top" key="row{{ k }}-{{ w }}">
+                    {{ jval.strip(' |') }}
+                  </td>
+                {% endif %}
+              {% elif k == 0 or k == (jint[kls[i+1]]|length) - 1 %}
                 {% if k == 0 and (jval|string)[0] == '-' %}
                   <td class="number row-first neg-red sig" 
                       key="row{{ k }}-{{ w }}">
@@ -144,12 +147,12 @@
                 {% endif %}
               {% else %}
                 {% if (jval|string)[0] == '-' %}
-                  <td class="number {{ jt.lower() }}-data-{{ k }} neg-red" 
+                  <td class="number {{ jt }}-data-{{ k }} neg-red" 
                       key="row{{ k }}-{{ w }}">
                     ({{ (jval|string).split('.')[0][1:] }})
                   </td>
                 {% else %}
-                  <td class="number {{ jt.lower() }}-data-{{ k }}" 
+                  <td class="number {{ jt }}-data-{{ k }}" 
                       key="row{{ k }}-{{ w }}">
                     {{ (jval|string).split('.')[0] }}
                   </td>  

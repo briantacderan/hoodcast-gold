@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     var currentFocus;
 
-    inp.addEventListener("input", function(e) {
+    inp.addEventListener('input', function(e) {
       var a, b, i, val = this.value;
       closeAllLists();
         

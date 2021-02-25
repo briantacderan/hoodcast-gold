@@ -92,20 +92,20 @@ g#logo {
   color: #000;
   width: 70%;
   margin: 0;
-  padding-bottom: 5px;
   border-radius: 10px;
   overflow-y: scroll;
+  overflow-x: hidden;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar { 
+::-webkit-scrollbar {
   display: none;
 }
 
 #container.new {
   height: 100%;
-  max-height: 75%;
+  max-height: 77%;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -199,14 +199,13 @@ h2.subheader {
   letter-spacing: 0.6px;
   background-color: #000000;
   color: gold;
-  border: 5px solid white;
-  border-top: 15px solid white;
-  border-radius: 15px;
-  padding: 5px;
+  margin-top: 15px;
+  border-radius: 10px 10px 0 0;
+  padding: 5px 0;
 }
 
 h2#active.subheader {
-  border-top: 60px solid white;
+  margin-top: 60px;
 }
 
 table {
@@ -233,7 +232,14 @@ div.table-start {
   overscroll-behavior: none;
 }
 
+div.table-start select {
+  margin-top: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 div.table-container {
+  margin-top: 1rem;
   overscroll-behavior: none;
 }
 
@@ -252,10 +258,14 @@ tbody#statement-body div.tracks {
   overflow-x: scroll;
 }
 
-.table-container tbody tr.table-header,
-div.tracks tr.financials {
+tr.table-header,
+tr.financials {
   height: 35px;
   scroll-snap-align: start;
+}
+
+tr.table-header {
+
 }
 
 tr.table-header.hoodcast-header th.t-head {
@@ -266,6 +276,23 @@ tr.table-header.hoodcast-header th.t-head {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 21;
+}
+
+tr.table-header.hoodcast-header th.t-head.col-h-1 {
+  background-color: gold;
+  border-radius: 0 10px 0 0;
+  border-bottom: solid 4px gold;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 22;
+}
+
+tr.table-header.hoodcast-header th.t-head.col-h-0 {
+  background-color: gold;
+  border-radius: 10px 0 0 0;
+  z-index: 0;
 }
 
 tr {
@@ -277,19 +304,33 @@ th.t-head {
   font-size: 14px;
 }
 
+tr.financials {
+  
+}
+
 tr.financials td {
   padding-right: 1rem;
   scroll-snap-align: start;
 }
 
-tr.financials td.gold-top {
+tr.financials td.t-category {
   text-align: right;
-  border-top: solid 3px gold;
+}
+
+tr.financials td.gold-top {
+  border-top: solid 4px gold;
 }
 
 tr.financials td.t-account {
+  background-color: white;
   text-align: left;
   font-size: 14px;
+  position: -webkit-sticky;
+  position: sticky;
+  /*border-right: solid 4px gold;*/
+  padding: 3px;
+  left: 0;
+  z-index: 21;
 }
 
 tr.financials td.number {
@@ -311,11 +352,31 @@ tr.financials td.neg-red {
   color: red;
 }
 
-tr:nth-child(even) {
+tr.financials:nth-child(even) td.t-account,
+tr.financials:nth-child(even) td.number,
+tr.ratios:nth-child(even) {
   background-color: #F5F4F5;
+  z-index: 21;
 }
 
-td.company-link {
+tr.financials:nth-child(odd) td.t-account,
+tr.financials:nth-child(odd) td.number,
+tr.ratios:nth-child(odd) {
+  background-color: #FFF;
+  z-index: 21;
+}
+
+tr.financials:nth-child(odd) td.number.acct-line,
+tr.financials:nth-child(even) td.number.acct-line {
+  border-top: solid 2px #000;
+}
+
+tr.financials:nth-child(odd) td.number.acct-thick,
+tr.financials:nth-child(even) td.number.acct-thick {
+  border-bottom: thick double #000;
+}
+
+td.company-link td.t-account {
   text-decoration: underline;
 }
 
