@@ -73,8 +73,8 @@
         <div class="scroller">
           <tr class="table-header hoodcast-header">
          
-
-            {% for i in range(jint['columns']|length) %}
+            {% set col_len = jint['columns']|length %}
+            {% for i in range(col_len) %}
             <th id="headers-{{ x }}-{{ i }}" 
                 class="t-head col-h-{{ i }} {{ jt }}-h-{{ i }}">
               {{ jint['columns'][i].lower().title().strip('| ') }}
@@ -84,7 +84,7 @@
                    alt="Sort Ascending"
                    src="{{ url_for('static', 
                         filename='resources/images/up.svg') }}" />
-              <img id="{{ jt }}-sortdesc-{{ i }}" 
+              <img id="{{ jt }}-sortdesc-{{ i+col_len }}" 
                    class="sortdesc"
                    alt="Sort Descending" 
                    src="{{ url_for('static', 
