@@ -46,7 +46,7 @@
 {% for x in range(table_titles|length) %}
 {% set jt = table_titles[x].lower() %}
 <div id="to-{{ jt }}" class="table-start">
-  <h2 id="active" class="subheader">{{ jt.upper() }}</h2>
+  <h2 id="active-{{ jt }}" class="subheader statement">{{ jt.upper() }}</h2>
   click to view: the
   <select id="{{ jt }}-selector" class="selectors">
 

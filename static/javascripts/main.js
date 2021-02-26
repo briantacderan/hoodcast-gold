@@ -34,18 +34,28 @@ $(document).ready(function() {
   var rowCount;
   var hedCount;
   var sortButton;
+  var backStr;
   var t;
     
-  function changeTable(elem, t, j) {
+  function changeTable(elem, t, j, hedCount, rowCount) {
     elem.addEventListener('mousedown', function() {
-      for (var w=1; w<(hedCount*2)+2; w++) {
+      for (var w=1; w<hedCount*2+2; w++) {
         for (var k=0; k<rowCount; k++) {
           $(`#${t}-${w}-datarow-${k}`).hide();
         }
       }
-      for (var k=1; k<rowCount; k++) {
+      for (var k=0; k<rowCount; k++) {
         $(`#${t}-${j}-datarow-${k}`).show();
       }
+    });
+  }
+    
+  function revertTable(table) {
+    $(`#active-${table}`).hover(function(e) {
+      backStr = 'back to original';
+      $(`#active-${table}`).html(backStr);
+    }, function(e) {
+      $(`#active-${table}`).html(`${table.toUpperCase()}`)
     });
   }
     
@@ -54,19 +64,22 @@ $(document).ready(function() {
     if ($(`#table-${t}`)) {
       hedCount = $(`#table-${t} th`).length;
       rowCount = $(`#table-${t} tr`).length;
-      for (var j=2; j<(hedCount+2); j++) {
+      sortButton = document.getElementById(`active-${t}`);
+      changeTable(sortButton, t, 1, hedCount, rowCount);
+      revertTable(t);
+      for (var j=2; j<hedCount+2; j++) {
         for (var k=0; k<rowCount; k++) {
           $(`#${t}-${j}-datarow-${k}`).hide();
         }
         sortButton = document.getElementById(`${t}-sortasc-${j-2}`);
-        changeTable(sortButton, t, j);
+        changeTable(sortButton, t, j, hedCount, rowCount);
       }
-      for (var j=(2+hedCount); j<(hedCount*2+2); j++) {
+      for (var j=2+hedCount; j<(hedCount*2+2); j++) {
         for (var k=0; k<rowCount; k++) {
           $(`#${t}-${j}-datarow-${k}`).hide();
         }
         sortButton = document.getElementById(`${t}-sortdesc-${j-2}`);
-        changeTable(sortButton, t, j);
+        changeTable(sortButton, t, j, hedCount, rowCount);
       }
     }
   }

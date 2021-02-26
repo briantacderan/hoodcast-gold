@@ -103,8 +103,8 @@ def metrics(name, form_type, year):
                     .fetchall()
                 else:
                     df_dict[table_titles[i]][dict_str] = \
-                    session.execute(f"SELECT * FROM {table_titles[i]} ORDER BY \
-                    `{columns[k]}` {sort_list[j]}").fetchall()
+                    session.execute(f"SELECT * FROM {table_titles[i]} \
+                    ORDER BY `{columns[k]}` {sort_list[j]}").fetchall()
 
         df_dict[table_titles[i]]['keys_list'] = \
         list(df_dict[table_titles[i]].keys())

@@ -1,25 +1,27 @@
 $(document).ready(function() {
-  
-  var isScroll = document.getElementById('container');
-  var scrollPoint;
     
-  if ($(window).width() > 500) {  
-    scrollPoint = 819;
-    $('#container').scroll(function() {
-      $('#container').scrollTop() >= scrollPoint ? 
-      isScroll.style.overflowX = 'scroll' : isScroll.style.overflowX = 'hidden';
-      $('#container').scrollTop() < scrollPoint && $('#container').scrollLeft() !== 0 ?
-      $('#container').scrollTop(scrollPoint) : '';
-    });
-  } else {
-    scrollPoint = 638;
-    $('#container').scroll(function() {
-      $('#container').scrollTop() >= scrollPoint ? 
-      isScroll.style.overflowX = 'scroll' : isScroll.style.overflowX = 'hidden';
-      $('#container').scrollTop() < scrollPoint && $('#container').scrollLeft() !== 0 ?
-      $('#container').scrollTop(scrollPoint) : '';
-    });
-  }
+  var scrollTop;
+  var scrollLeft;
+  var scrollPoint;
+  var trueDivHeight;
+  var divHeight;
+  var scrollBottom;
+    
+  var container = document.getElementById('container');
+  $(window).width() > 500 ? scrollPoint = 824 : scrollPoint = 643;
+    
+  $('#container').scroll(function() {
+    scrollTop = $('#container').scrollTop();
+    scrollLeft = $('#container').scrollLeft();
+    trueDivHeight = $('#container')[0].scrollHeight;
+    divHeight = $('#container').height();
+    scrollBottom = trueDivHeight - divHeight;
+      
+    scrollTop >= scrollPoint || scrollBottom == scrollTop ? 
+    container.style.overflowX = 'scroll' : container.style.overflowX = 'hidden';
+    scrollTop < scrollPoint && scrollLeft !== 0 ? 
+    $('#container').scrollTop(scrollPoint) : '';
+  });
  
   var tables = ['balance', 'income', 'operations', 'equity', 'cash'];
   var wordArr = ['Total', 'Gross', 'Loss Before', 'Loss from', 'Net loss', 'Net cash', 'Net increase', 'Balance'];
