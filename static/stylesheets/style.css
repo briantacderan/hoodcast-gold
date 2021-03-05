@@ -263,15 +263,14 @@ tbody#statement-body {
 tbody#statement-body th.t-head,
 tbody#statement-body div.tracks {
   top: 0;
-  bottom: 0;
   overflow: scroll;
   transform: translate3d(0,0,0);
   -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0,0,0);
 }
 
-tbody#statement-body th.t-head > *,
-tbody#statement-body div.tracks > * {
-  -webkit-transform: translateZ(0);
+tbody#statement-body th.t-head > * {
+  -webkit-transform: translate3d(0,0,0);
 }
 
 tr.table-header,
@@ -531,6 +530,13 @@ img.sortdesc {
     width: 100px;
     min-width: 100px;
     font-size: 12px;
+  }
+    
+  tr.table-header.hoodcast-header {
+    position: fixed;
+    top: 72px;
+    left: -50px;
+    z-index: 50;
   }
 
   tr.table-header.hoodcast-header th.t-head {

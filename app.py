@@ -4,7 +4,7 @@ import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('MAILGUN_SECRET_KEY', None)
+app.config['SECRET_KEY'] = os.environ.get('HOODCAST_SECRET_KEY', None)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoodcast.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
