@@ -47,40 +47,50 @@
              src="{{ url_for('static', 
                   filename='resources/images/hoodcast-gold.svg') }}" />
       </a>
+        
+      {% if current_user.is_authenticated %}
+      <div id="user-now">
+        {{ current_user.email }} <a id="outside" class="gold-link" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+      {% endif %}
+    
     </div>
       
     <div id="container">
-      <div id="search">
+        
+      {% if current_user.is_authenticated %}
+      <div id="search" class="form-fields">
         <form autocomplete="off" id="form-panels" action="" method="post">
             
           {{ form.hidden_tag() }}
-          <div class="hoodcast-search autocomplete">
+          <div class="hoodcast-form autocomplete">
             {{ form.name(id="company-search", 
-              class="hoodcast-search-input form-control", size=32) }}
+              class="hoodcast-input form-control", size=32) }}
             {% for error in form.name.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
-          <div class="hoodcast-search">
+          <div class="hoodcast-form">
             {{ form.form_type(id="enter-event1", 
-              class="hoodcast-search-input", size=32) }}
-            {% for error in form.name.errors %}
+              class="hoodcast-input", size=32) }}
+            {% for error in form.form_type.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
-          <div class="hoodcast-search">
-            {{ form.year(id="enter-event2", class="hoodcast-search-input", 
+          <div class="hoodcast-form">
+            {{ form.year(id="enter-event2", class="hoodcast-input", 
               size=32) }}
-            {% for error in form.name.errors %}
+            {% for error in form.year.errors %}
             <span style="color: red; font-weight: bold;">[{{ error }}]</span>
             {% endfor %}
           </div>
           <div>
-            {{ form.submit(id="hoodcast-search-button") }}
+            {{ form.submit(id="hoodcast-submit-button") }}
           </div>
               
         </form>
-      </div>    
+      </div>   
+      {% endif %}
       
       {% block content %}
       {% endblock %}
@@ -88,6 +98,7 @@
       <div class="site-main-background" arai-hidden="true"></div>
     </div>
       
+    {% if current_user.is_authenticated %}  
     <script type="text/javascript">
       var companies = {{ companies|tojson }}; 
       var companyArray = [];
@@ -95,10 +106,11 @@
         companyArray.push(companies[i][0]);
       }
     </script>
-      
-    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
     <script src="{{ url_for('static', 
                  filename='javascripts/autocomplete.js') }}"></script>
+    {% endif %}
+      
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
     <script src="{{ url_for('static',
                  filename='javascripts/svg-load.js') }}"></script>
       

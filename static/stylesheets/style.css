@@ -82,6 +82,12 @@ g#logo {
   z-index: 1001;
 }
 
+div#user-now {
+  position: fixed;
+  bottom: 2rem;
+  color: black;
+}
+
 
 
 
@@ -120,7 +126,7 @@ g#logo {
 
 
 /* Search */
-#search {
+.form-fields {
   display: block;
   padding: 32px 0;
   margin: 0 auto;
@@ -132,12 +138,12 @@ g#logo {
   flex-direction: column;
 }
 
-.hoodcast-search {
+.hoodcast-form {
   margin: 5px 15px 5px 15px;
   display: inline-block;
 }
 
-.hoodcast-search-input {
+.hoodcast-input {
   width: 250px;
   height: 36px;
   border-radius: 3px;
@@ -157,7 +163,12 @@ g#logo {
   cursor: text;
 }
 
-#hoodcast-search-button {
+div#register-div .hoodcast-input,
+div#login-div .hoodcast-input {
+  font-size: 14px;
+}
+
+#hoodcast-submit-button {
   text-align: center;
   width: 160px;
   height: 65px;
@@ -174,10 +185,24 @@ g#logo {
   appearance: none;
 }
 
-#hoodcast-search-button:hover {
+#hoodcast-submit-button:hover {
   border: solid 2px #000;
   background-color: gray;
   color: #FFF;
+}
+
+a.gold-link {
+  color: gold;
+}
+
+a.gold-link:hover {
+  color: gray;
+  text-decoration: underline;
+}
+
+a.gold-link#outside:hover {
+  color: red;
+  text-decoration: underline;
 }
 
 
@@ -192,6 +217,10 @@ tr.financials td.number {
   vertical-align: middle;
   width: 150px;
   min-width: 150px;
+}
+
+h2#pre-load {
+  margin: 4px;
 }
 
 h2.subheader {
@@ -478,7 +507,15 @@ img.sortdesc {
     margin-right: 5%;
   }
     
-  #hoodcast-search-button {
+  div#user-now {
+    right: 0;
+    width: 100%;
+    text-align: right;
+    font-size: 14px;
+    margin-right: 5%;
+  }
+    
+  #hoodcast-submit-button {
     width: 180px;
     font-size: 2rem;
   }
@@ -506,8 +543,12 @@ img.sortdesc {
   a#icon-link {
     margin-right: 12%;
   }
+
+  div#user-now {
+    font-size: 10px;
+  }
     
-  .hoodcast-search-input {
+  .hoodcast-input {
     width: 200px;
     height: 2rem;
     border-radius: 3px;
@@ -533,10 +574,7 @@ img.sortdesc {
   }
     
   tr.table-header.hoodcast-header {
-    position: fixed;
-    top: 72px;
-    left: -50px;
-    z-index: 50;
+
   }
 
   tr.table-header.hoodcast-header th.t-head {
@@ -564,18 +602,15 @@ img.sortdesc {
     font-size: 0.75rem;
   }
     
-  #hoodcast-search-button {
+  #hoodcast-submit-button {
     width: 140px;
     height: 40px;
     font-size: 1.4rem;
+    margin-top: 0.5rem;
   }
 
-  #search {
+  div.form-fields {
     padding: 1rem;    
-  }
-    
-  #hoodcast-search-button {
-    margin-top: 0.5rem;
   }
 }
 
@@ -593,7 +628,7 @@ img.sortdesc {
     max-width: 125px;
   }
     
-  .hoodcast-search-input {
+  .hoodcast-input {
     width: 200px;
     height: 2rem;
     border-radius: 3px;
@@ -609,18 +644,15 @@ img.sortdesc {
     font-size: 0.75rem;
   }
     
-  #hoodcast-search-button {
+  #hoodcast-submit-button {
     width: 140px;
     height: 40px;
     font-size: 1.4rem;
+    margin-top: 0.5rem;
   }
 
-  #search {
+  .form-fields {
     padding: 1rem;
-  }
-    
-  #hoodcast-search-button {
-    margin-top: 0.5rem;
   }
     
   .site-main-background {

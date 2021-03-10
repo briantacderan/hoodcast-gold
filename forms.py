@@ -2,12 +2,44 @@ import numpy as np
 import pandas as pd
 import fuckit
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import ValidationError, DataRequired
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from werkzeug.urls import url_parse
 from sqlalchemy import asc, desc, func, distinct, column, sql
-from models import Company, Statement
+from models import Company, Statement, User
 from app import app, db
+
+
+class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'Email'})
+    password = PasswordField('Password', validators=[DataRequired()], 
+                             render_kw={'placeholder': 'Password'})
+    password2 = PasswordField('Repeat it', 
+                              validators=[DataRequired(), 
+                                          EqualTo('password', 
+                                                  message='Not a match')], 
+                              render_kw={'placeholder': 'Repeat!'})
+    submit = SubmitField('LINK!')
+    
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Email address taken')
+
+
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()], 
+                        render_kw={'placeholder': 'Email'})
+    password = PasswordField('Password', validators=[DataRequired()], 
+                       render_kw={'placeholder': 'Password'})
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('LOGIN!')
+    
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Email invalid')
 
 
 class SearchForm(FlaskForm):
@@ -26,8 +58,7 @@ class SearchForm(FlaskForm):
         company = Company.query.filter_by(title=name.data).first()
         if company is None:
             raise ValidationError('Invalid company name')
-    
-    
+
     
 class SearchResults(FlaskForm):
     @fuckit

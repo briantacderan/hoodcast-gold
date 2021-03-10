@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+  <h2 id="pre-load" class="subheader">Link Robinhood</h2>
+</div>
+
+<div id="register-div" class="form-fields">
+  <form autocomplete="off" id="form-panels" action="" method="post">
+            
+    {{ form.hidden_tag() }}
+    <div class="hoodcast-form autocomplete">
+      {{ form.email(class="hoodcast-input form-control", size=32) }}
+      {% for error in form.email.errors %}
+      <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div class="hoodcast-form">
+      {{ form.password(class="hoodcast-input", size=32) }}
+      {% for error in form.password.errors %}
+      <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div class="hoodcast-form">
+      {{ form.password2(id="enter-event1", 
+        class="hoodcast-input", size=32) }}
+      {% for error in form.password2.errors %}
+      <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.submit(id="hoodcast-submit-button") }}
+    </div>
+
+  </form>
+</div>
+    
+{% endblock %}

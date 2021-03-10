@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+  <h2 id="pre-load" class="subheader">Sign in</h2>
+</div>
+
+<div id="login-div" class="form-fields">
+  <p>New User? <a class="gold-link" href="{{ url_for('register') }}">Click here</a> to Register!</p>
+  <form autocomplete="off" id="form-panels" action="" method="post">
+            
+    {{ form.hidden_tag() }}
+    <div class="hoodcast-form autocomplete">
+      {{ form.email(class="hoodcast-input form-control", size=32) }}
+      {% for error in form.email.errors %}
+      <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div class="hoodcast-form">
+      {{ form.password(id="enter-event1", 
+        class="hoodcast-input", size=32) }}
+      {% for error in form.password.errors %}
+      <span style="color: red; font-weight: bold;">[{{ error }}]</span>
+      {% endfor %}
+    </div><br>
+    <div>{{ form.remember_me() }} {{ form.remember_me.label }}</div>
+    <div>
+      {{ form.submit(id="hoodcast-submit-button") }}
+    </div>
+
+  </form>
+</div>
+    
+{% endblock %}

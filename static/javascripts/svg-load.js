@@ -64,9 +64,18 @@ $(document).ready(function() {
       });
     }
   }
+    
+  var inputOne = document.getElementById('enter-event1');
+  var inputTwo = document.getElementById('enter-event2');
 
-  document.getElementById('hoodcast-search-button').addEventListener('mousedown', handleEvent);
-  document.getElementById('hoodcast-search-button').addEventListener('keydown', handleKeyEvent);
-  document.getElementById('enter-event1').addEventListener('keydown', handleKeyEvent);
-  document.getElementById('enter-event2').addEventListener('keydown', handleKeyEvent);
+  document.getElementById('hoodcast-submit-button').addEventListener('mousedown', handleEvent);
+  document.getElementById('hoodcast-submit-button').addEventListener('keydown', handleKeyEvent);
+
+  if (inputOne) {
+    inputOne.addEventListener('keydown', handleKeyEvent);
+  }
+  if (inputTwo) {
+    inputTwo.addEventListener('keydown', handleKeyEvent);
+  }
+    
 });
