@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from app import db, login
 
-class Company(db.Model):
+class Company(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cik_str = db.Column(db.String(140), index=True)
     ticker = db.Column(db.String(140), index=True, unique=True)
@@ -14,7 +14,7 @@ class Company(db.Model):
     def __repr__(self):
         return '<Company {}>'.format(self.title)
 
-class Statement(db.Model):
+class Statement(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     form_type = db.Column(db.String(140), index=True)
     year = db.Column(db.String(140), index=True)
