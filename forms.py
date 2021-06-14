@@ -73,7 +73,7 @@ class SearchResults(FlaskForm):
         self.cash = session.execute("SELECT * FROM Balance WHERE account='Cash and cash equivalents'").fetchall()[0][2]
         self.ar = session.execute("SELECT * FROM Balance WHERE account='Accounts receivable'").fetchall()[0][2]
         self.ni = session.execute("SELECT * FROM Income WHERE account='Net income (loss)'").fetchall()[0][2]
-        self.tr = session.execute("SELECT * FROM Operation WHERE account='Total revenue'").fetchall()[0][2]
+        self.tr = session.execute("SELECT * FROM Operations WHERE account='Total revenue'").fetchall()[0][2]
         self.pf = session.execute("SELECT * FROM Balance WHERE account='Series A'").fetchall()[0][2]
         equity = session.execute("SELECT * FROM Balance WHERE account='Total equity'").fetchall()[0][2]
         self.tshe = equity

@@ -220,7 +220,7 @@ tr.financials td.number {
 }
 
 h2#pre-load {
-  margin: 4px;
+  margin: 3px;
 }
 
 h2.subheader {
@@ -587,7 +587,6 @@ img.sortdesc {
   tr.table-header.hoodcast-header th.t-head {
     -webkit-overflow-scrolling: touch;    
   }
-  
 
   tr.financials td.sig {
     font-size: 14px;
