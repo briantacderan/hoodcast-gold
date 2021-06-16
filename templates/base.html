@@ -100,11 +100,7 @@
       
     {% if current_user.is_authenticated %}  
     <script type="text/javascript">
-      var companies = {{ companies|tojson }}; 
-      var companyArray = [];
-      for (i = 0; i < companies.length; i++) {
-        companyArray.push(companies[i][0]);
-      }
+      var companies = {{ companies|tojson|safe }};
     </script>
     <script src="{{ url_for('static', 
                  filename='javascripts/autocomplete.js') }}"></script>

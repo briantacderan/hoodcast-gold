@@ -82,5 +82,5 @@ $(document).ready(function() {
     });
   }
 
-  autocomplete(document.getElementById("company-search"), companyArray);
+  autocomplete(document.getElementById("company-search"), companies);
 });

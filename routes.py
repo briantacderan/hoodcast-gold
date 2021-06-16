@@ -50,7 +50,10 @@ def register():
 @login_required
 def index():
     form = SearchForm()
-    companies = Company.query.with_entities(Company.title).all()
+    companies_tuple = Company.query.with_entities(Company.title).all()
+    companies = []
+    for company in companies_tuple:
+        companies.append(company[0])
     
     if form.validate_on_submit():
         name = form.name.data.lower().title()
