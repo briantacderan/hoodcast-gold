@@ -20,13 +20,13 @@ class CustomSessionInterface(SecureCookieSessionInterface):
         return super(CustomSessionInterface, self).save_session(*args, **kwargs)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('HOODCAST_SECRET_KEY', None)
+app.config['SECRET_KEY'] = os.environ.get('MAILGUN_SECRET_KEY', None)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoodcast.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.session_interface = CustomSessionInterface()
 
 db = SQLAlchemy(app)
-#port = int(os.environ.get('PORT', 5000))
+port = int(os.environ.get('PORT', 5000))
 
 login = LoginManager()
 login.login_view = 'login'
