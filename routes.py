@@ -62,8 +62,8 @@ def index():
         
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('metrics', name=name, 
-                                form_type=form_type, year=year)
+            next_page = url_for('metrics', name=name, form_type=form_type, 
+                                year=year)
         return redirect(next_page)
     return render_template('landing_page.html', 
                            form=form, companies=companies)
@@ -128,11 +128,11 @@ def metrics(name, form_type, year):
             return redirect(url_for('index'))
     
     df_dict = {}
-
+    
     for i in range(len(table_titles)):
         df_dict[table_titles[i]] = {}
-        columns = session.execute(f"SELECT * FROM {table_titles[i]}").keys()
-        df_dict[table_titles[i]]['columns'] = list(columns)
+        columns = list(session.execute(f"SELECT * FROM {table_titles[i]}").keys())
+        df_dict[table_titles[i]]['columns'] = columns
 
         for j in range(len(sort_list)):
 
@@ -146,15 +146,17 @@ def metrics(name, form_type, year):
                     .fetchall()
                 else:
                     df_dict[table_titles[i]][dict_str] = \
-                    session.execute(f"SELECT * FROM {table_titles[i]} \
-                    ORDER BY `{columns[k]}` {sort_list[j]}").fetchall()
+                    session.execute(f"SELECT * FROM {table_titles[i]} ORDER BY `{columns[k]}` {sort_list[j]}").fetchall()
 
         df_dict[table_titles[i]]['keys_list'] = \
         list(df_dict[table_titles[i]].keys())
 
     ratios = SearchResults(mobb, robb, session)
     form = SearchForm()
-    companies = Company.query.with_entities(Company.title).all()
+    companies_tuple = Company.query.with_entities(Company.title).all()
+    companies = []
+    for company in companies_tuple:
+        companies.append(company[0])
     
     if form.validate_on_submit():
         name = form.name.data.lower().title()
