@@ -81,9 +81,11 @@ def metrics(name, form_type, year):
         fortnite = dt.timedelta(days=14)
         current += fortnite
         date_array.append(current)
+        
+    ua = request.headers.get('User-Agent')
 
     try:
-        mobb = hf.Mobbin(name, form_type, year)
+        mobb = hf.Mobbin(name, form_type, year, user_agent=ua)
     except:
         flash('Certain form requests may be unavailable')
         return redirect(url_for('index'))

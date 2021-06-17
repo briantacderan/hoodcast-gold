@@ -1,9 +1,9 @@
 blinker==1.4
-email-validator==1.1.2
+email-validator==1.1.3
 Flask-Login==0.5.0
-Flask-SQLAlchemy==2.4.4
-Flask-WTF==0.14.3
+Flask-SQLAlchemy==2.5.1
+Flask-WTF==0.15.1
 fuckit==4.8.1
-gunicorn==20.0.4
+gunicorn==20.1.0
 -e git://github.com/briantacderan/hoodflex.git#egg=hoodflex
-robin-stocks==2.0.3
+robin-stocks==2.0.4

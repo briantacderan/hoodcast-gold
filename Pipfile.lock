@@ -351,7 +351,7 @@
         "hoodflex": {
             "editable": true,
             "git": "git://github.com/briantacderan/hoodflex.git",
-            "ref": "7d14e19daa5490a265276a9e0e42f21320587679"
+            "ref": "cb8621cee5afce14a0c7ccaf6a72960bacd47edf"
         },
         "idna": {
             "hashes": [
