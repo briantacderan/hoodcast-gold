@@ -72,15 +72,21 @@ class SearchResults(FlaskForm):
         self.tl = session.execute("SELECT * FROM Balance WHERE account='Total liabilities'").fetchall()[0][2]
         self.cash = session.execute("SELECT * FROM Balance WHERE account='Cash and cash equivalents'").fetchall()[0][2]
         self.ar = session.execute("SELECT * FROM Balance WHERE account='Accounts receivable'").fetchall()[0][2]
-        self.ni = session.execute("SELECT * FROM Income WHERE account='Net income (loss)'").fetchall()[0][2]
+        income = session.execute("SELECT * FROM Income WHERE account='Net income (loss)'").fetchall()
+        if not income:
+            income = session.execute("SELECT * FROM Income WHERE account='Net income'").fetchall()
+        if not income:
+            income = session.execute("SELECT * FROM Income WHERE account='Net loss'").fetchall()
+        self.ni = income[0][2]
         self.tr = session.execute("SELECT * FROM Operations WHERE account='Total revenue'").fetchall()[0][2]
         self.pf = session.execute("SELECT * FROM Balance WHERE account='Series A'").fetchall()[0][2]
-        equity = session.execute("SELECT * FROM Balance WHERE account='Total equity'").fetchall()[0][2]
-        self.tshe = equity
+        equity = session.execute("SELECT * FROM Balance WHERE account='Total equity'").fetchall()
+        if not equity:
+            equity = session.execute("SELECT * FROM Balance WHERE account='Total shareholders’ equity'").fetchall()
+        self.tshe = equity[0][2]
         self.tshe = equity - session.execute("SELECT * FROM Balance WHERE account='Non-controlling interest'").fetchall()[0][2]
         count = session.execute("SELECT COUNT(*) FROM Equity").fetchall()[-1][-1]
         self.cso = session.execute("SELECT * FROM Equity").fetchall()[count-1][2]
-        eps_string, self.eps_ratio = self.eps()
     
     def format_string(self, ratio):
         try:
@@ -91,9 +97,11 @@ class SearchResults(FlaskForm):
                 string = '≈0:1 ratio'
             else:
                 ratio = float('{0:.2f}'.format(ratio)) if ratio % 1 != 0 else int(ratio)
-                if ratio <= -1.0:
+                if ratio == 0:
+                    string = '≈0:1 ratio'
+                elif ratio <= -1.0:
                     string = f'-{-ratio}:1 ratio'
-                elif ratio < 0 and ratio > -1:
+                elif ratio < 0.0 and ratio > -1.0:
                     formatted = float("{0:.2f}".format(-1/ratio))
                     string = f'-1:{formatted} ratio' if formatted % 1 != 0 else f'-1:{int(formatted)} ratio'
                 elif ratio >= 1.0:
