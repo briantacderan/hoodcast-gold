@@ -93,6 +93,7 @@ def metrics(name, form_type, year):
     try:
         robb = hf.Robbin(company.ticker, date_points=date_array)
     except:
+        robb = {}
         flash('Some financial metrics unavailable')
 
     df_array, file_array, table_titles, engine, session = \
