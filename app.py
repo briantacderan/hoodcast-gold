@@ -21,7 +21,7 @@ class CustomSessionInterface(SecureCookieSessionInterface):
         return super(CustomSessionInterface, self).save_session(*args, **kwargs)
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=['http://127.0.0.1:5000'])
+CORS(app, supports_credentials=True, origins=[os.environ.get('DOMAIN_STR', 'https://hoodcast.gold')])
 app.config['SECRET_KEY'] = os.environ.get('MAILGUN_SECRET_KEY', None)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoodcast.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
