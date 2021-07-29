@@ -46,7 +46,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'OPTIONS'])
 @login_required
 def index():
     form = SearchForm()
@@ -69,7 +69,7 @@ def index():
                            form=form, companies=companies)
 
 
-@app.route('/mobbin-results/<name>/<form_type>/<year>', methods=['GET', 'POST'])
+@app.route('/mobbin-results/<name>/<form_type>/<year>', methods=['GET', 'POST', 'OPTIONS'])
 @login_required
 def metrics(name, form_type, year):
     company = Company.query.filter_by(title=name).first()

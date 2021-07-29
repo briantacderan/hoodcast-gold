@@ -2,6 +2,7 @@ from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, user_loaded_from_request
 from flask.sessions import SecureCookieSessionInterface
+from flask_cors import CORS
 import os
 
 
@@ -20,10 +21,11 @@ class CustomSessionInterface(SecureCookieSessionInterface):
         return super(CustomSessionInterface, self).save_session(*args, **kwargs)
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True, origins=['http://127.0.0.1:5000'])
 app.config['SECRET_KEY'] = os.environ.get('MAILGUN_SECRET_KEY', None)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoodcast.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.session_interface = CustomSessionInterface()
+# app.session_interface = CustomSessionInterface()
 
 db = SQLAlchemy(app)
 port = int(os.environ.get('PORT', 5000))

@@ -10,6 +10,7 @@ fuckit = "*"
 gunicorn = "*"
 hoodflex = {editable = true, git = "git://github.com/briantacderan/hoodflex.git"}
 robin-stocks = "*"
+Flask-Cors = "*"
 Flask-Login = "*"
 Flask-SQLAlchemy = "*"
 Flask-WTF = "*"
