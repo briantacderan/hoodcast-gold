@@ -5,6 +5,7 @@ from models import Company, Statement, User
 from forms import RegistrationForm, LoginForm, SearchForm, SearchResults
 from werkzeug.urls import url_parse
 from app import app, db
+import pandas as pd
 import datetime as dt
 import hoodflex as hf
 
@@ -65,52 +66,58 @@ def index():
             next_page = url_for('metrics', name=name, form_type=form_type, 
                                 year=year)
         return redirect(next_page)
-    return render_template('landing_page.html', 
-                           form=form, companies=companies)
+    return render_template('landing_page.html', form=form, companies=companies)
 
 
 @app.route('/mobbin-results/<name>/<form_type>/<year>', methods=['GET', 'POST', 'OPTIONS'])
 @login_required
 def metrics(name, form_type, year):
     company = Company.query.filter_by(title=name).first()
-    statement = Statement.query.filter_by(company_id=company.id).first()
+    statement = Statement.query.filter_by(company_id=company.id, 
+                                          form_type=form_type, 
+                                          year=year).first()
     current = dt.datetime.now()
     date_array = [current]
-
+    table_list = ['Balance', 'Income', 'Operations', 'Equity', 'Cash']
+    sort_list = ['new', 'asc', 'desc']
+    
     for i in range(5):
         fortnite = dt.timedelta(days=14)
         current += fortnite
         date_array.append(current)
-
-    try:
-        ua = request.headers.get('User-Agent')
-        mobb = hf.Mobbin(name, form_type, year, user_agent=ua)
-    except:
-        flash('Certain form requests may be unavailable')
-        return redirect(url_for('index'))
-
+        
+    test_file = f"./static/resources/data/{name.lower().split(' ')[0].split(',')[0]}-{year}-{form_type.lower()}-{table_list[0][0:4].lower()}.csv"
+    
     try:
         robb = hf.Robbin(company.ticker, date_points=date_array)
     except:
         robb = {}
         flash('Some financial metrics unavailable')
-
-    df_array, file_array, table_titles, engine, session = \
-    mobb.statements_to_sql()
-    
-    table_list = ['Balance', 'Income', 'Operations', 'Equity', 'Cash']
-    sort_list = ['new', 'asc', 'desc']
-    bala, inco, oper, equi, cash = [None] * 5
-    table_val = [bala, inco, oper, equi, cash]
-    
-    if file_array:
-        for i in range(len(table_titles)):
-            for j in range(len(table_list)):
-                table_val[i] = file_array[i] \
-                if table_titles[i] == table_list[j] \
-                else table_val[i]
-
+        
     if statement is None:
+        try:
+            ua = request.headers.get('User-Agent')
+            mobb = hf.Mobbin(name, form_type, year, user_agent=ua)
+        except:
+            flash('Certain form requests may be unavailable')
+            return redirect(url_for('index'))
+
+        df_array, file_array, table_titles, engine, session = \
+        mobb.statements_to_sql()
+        
+        print('df_array = ', df_array)
+        print('file_array = ', file_array)
+        print('table_titles = ', table_titles)
+
+        bala, inco, oper, equi, cash = [None] * 5
+        table_val = [bala, inco, oper, equi, cash]
+
+        if file_array:
+            for i in range(len(table_titles)):
+                for j in range(len(table_list)):
+                    table_val[i] = file_array[i] if table_titles[i] == table_list[j] \
+                                                 else table_val[i]
+
         statement = Statement(form_type=form_type,
                               year=year,
                               company=name,
@@ -128,6 +135,49 @@ def metrics(name, form_type, year):
         except Exception:
             db.session.rollback()
             return redirect(url_for('index'))
+    
+    else:
+        print('Creating Mobbed class instance...\n')
+        
+        df_array = []
+        file_array = []
+        table_titles = []
+        
+        try:
+            balance_test = statement.bs
+            print('Database query succeeded: ', balance_test)
+        except:
+            print('database query fail...')
+            pass
+        
+        for i in range(len(table_list)):
+            filename = f"./static/resources/data/{name.lower().split(' ')[0].split(',')[0]}-{year}-{form_type.lower()}-{table_list[i][0:4].lower()}.csv"
+            
+            print(f'Attempt to get file: \n{filename}\n.\n..\n....\n......\n')
+            
+            try:
+                df = pd.read_csv(filename)
+                print(df)
+                print(f'DataFrame {table_list[i]} fetch succeeded\n')
+            except:
+                df = None
+                print('No DataFrame available\n')
+                continue
+            
+            if df is not None:
+                print('Creating assets: df_array, file_array, and table_titles\n')
+                df_array.append(df.set_index(['category', 'account']))
+                file_array.append(filename)
+                table_titles.append(table_list[i])
+                
+        print(f'Total length of available statements: {len(table_titles)}\n')
+        
+        mobb = hf.Mobbed(name, form_type, year)
+        engine, session = mobb.get_stash(df_array, table_titles)
+        
+        print('df_array = ', df_array)
+        print('file_array = ', file_array)
+        print('table_titles = ', table_titles)
     
     df_dict = {}
     
@@ -150,11 +200,12 @@ def metrics(name, form_type, year):
                     df_dict[table_titles[i]][dict_str] = \
                     session.execute(f"SELECT * FROM {table_titles[i]} ORDER BY `{columns[k]}` {sort_list[j]}").fetchall()
 
-        df_dict[table_titles[i]]['keys_list'] = \
-        list(df_dict[table_titles[i]].keys())
+        df_dict[table_titles[i]]['keys_list'] = list(df_dict[table_titles[i]].keys())
+        print(df_dict[table_titles[i]]['keys_list'])
 
     ratios = SearchResults(mobb, robb, session)
     form = SearchForm()
+    
     companies_tuple = Company.query.with_entities(Company.title).all()
     companies = []
     for company in companies_tuple:
@@ -167,17 +218,13 @@ def metrics(name, form_type, year):
         
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('metrics', name=name, form_type=form_type, 
-                                year=year)
+            next_page = url_for('metrics', name=name, form_type=form_type, year=year)
         return redirect(next_page)
     
-    return render_template('metrics.html', form=form, name=name, 
-                           form_type=form_type, year=year, company=company, 
-                           ratios=ratios, table_titles=table_titles, 
-                           columns=columns, companies=companies,
-                           session=session, df_dict=df_dict, 
-                           scrollToAnchor='head')
-
+    return render_template('metrics.html', form=form, name=name, form_type=form_type, 
+                           year=year, company=company, table_titles=table_titles, 
+                           columns=columns, companies=companies, session=session, 
+                           ratios=ratios, df_dict=df_dict, scrollToAnchor='head')
 
 @app.route('/logout')
 @login_required

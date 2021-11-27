@@ -108,19 +108,19 @@
                   <td class="t-category" key="row{{ k }}-{{ w }}"></td>
                 {% else %}
                   <td class="t-category gold-top" key="row{{ k }}-{{ w }}">
-                    {{ jval.strip(' |') }}
+                    {{ (jval|string).strip(' |') }}
                   </td> 
                 {% endif %}
               {% elif w == 1 %}
                 {% if k != 0 and jint[kls[i+1]][k][0] == jint[kls[i+1]][k-1][0] %}
                   <td id="{{ jt }}-acct-{{ k }}"
                       class="t-account" key="row{{ k }}-{{ w }}">
-                    {{ jval.strip(' |') }}
+                    {{ (jval|string).strip(' |') }}
                   </td>
                 {% else %}
                   <td id="{{ jt }}-acct-{{ k }}"
                       class="t-account gold-top" key="row{{ k }}-{{ w }}">
-                    {{ jval.strip(' |') }}
+                    {{ (jval|string).strip(' |') }}
                   </td>
                 {% endif %}
               {% elif k == 0 or k == (jint[kls[i+1]]|length) - 1 %}

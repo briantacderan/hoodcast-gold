@@ -62,7 +62,8 @@ class SearchForm(FlaskForm):
     
 class SearchResults(FlaskForm):
     @fuckit
-    def __init__(self, mobb, robb, session):
+    def __init__(self, mobb, robb, session, mobb_type='mobbin'):
+
         self.mobb = mobb
         self.df_yahoo = robb.full_dataframe()
         self.price = self.df_yahoo.Close[-1]
